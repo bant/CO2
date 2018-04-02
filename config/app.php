@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,7 +121,8 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
+    'log_max_files' => 30,
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -177,6 +178,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // laravelcollective/html
+        Collective\Html\HtmlServiceProvider::class,
+
+        // barryvdh/laravel-debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -226,6 +232,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // laravelcollective/html
+        'Form' => Collective\Html\FormFacade::class,  // 追加
+        'Html' => Collective\Html\HtmlFacade::class,  // 追加
+
+        // barryvdh/laravel-debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
