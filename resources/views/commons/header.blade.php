@@ -5,4 +5,5 @@
         <div id="author">Ｔウォッチ</div>
         <div id="author-e">Toxic Watch Network</div>
     </div>
-</div><!-----【header 追加分】----->
+</div>
+<!-----【header 追加分】----->

@@ -23,4 +23,16 @@ class Company extends Model
     {
         return mb_strimwidth($value, 0, 128, "..");
     }
+
+    public function regist_year()
+    {
+        return $this->belongsTo('App\RegistYear','regist_year_id');
+    }
+
+    public function company_division()
+    {
+        return $this->belongsTo('App\CompanyDivision','company_division_id');
+    }
+
+
 }

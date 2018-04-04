@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 // 検索
-Route::get('search/Company', 'SerachController@company');
-Route::get('search/Factory', 'SerachController@factory');
+Route::get('search/Company', 'SearchController@company');
+Route::get('search/Factory', 'SearchController@factory');
 
 // 比較
 Route::get('compare/MajorBusinessType', 'CompareController@major_business_type');
