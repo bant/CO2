@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// 検索
+Route::get('search/Company', 'SerachController@company');
+Route::get('search/Factory', 'SerachController@factory');
+
+// 比較
+Route::get('compare/MajorBusinessType', 'CompareController@major_business_type');
+Route::get('compare/CompanyDivision', 'CompareController@company_division');
+Route::get('compare/Pref', 'CompareController@pref');
+Route::get('compare/Gas', 'CompareController@gas');

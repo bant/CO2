@@ -1,0 +1,1 @@
+&copy;2003-{{$year}}<br>NPO法人 有害化学物質削減ネットワーク All Rights Reserved.

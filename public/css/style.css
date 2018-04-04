@@ -1,0 +1,413 @@
+﻿@charset "utf-8";
+/* 
+	Theme Name: 温室効果ガスデータベース
+	Theme URI: https:/co2.toxwatch.net/
+	Description: 国が収集した全国の事業者から届出された温室効果ガスの排出データをデータベース化しました。
+	Authors: 特定非営利活動法人 有害化学物質削減ネットワーク
+	Producer: Digital Aid;
+*/
+
+/* 全デバイス 共通
+---------------------------------------------*/
+* {
+  	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+	padding: 0;
+  	margin: 0;
+}
+body {
+  	background-color: #fceeb6;
+	color: #333333;
+	font-size: 12px;
+  	line-height: 1.5;
+	margin: 0;
+	text-align: center;
+	padding: 0;
+}
+.screen {
+	background-color: #ffffff;
+}
+img {
+  border: none;
+}
+
+a{
+  text-decoration: none;
+}
+a:link{
+  color: #099;
+}
+a:visited{
+  color: #66a394;
+}
+a:hover{
+  color: #999;
+  text-decoration: underline;
+}
+.center {
+	text-align: center;
+}
+
+/* --- ヘッダー --- */
+#header {
+	font-weight: bold;
+	text-align: center;
+}
+h1 {
+	background-color: #CCA50A;
+	color: #FFFFFF;
+	font-size: 1.5em;
+	height: 2.75em;
+	line-height: 2.5;
+	margin: 0;
+	padding: 0;
+}
+#author-area {
+	background-color: #ffffff;
+	margin: 0 1em;
+	padding: 0 0.125em;
+	text-align: left;
+}
+#logo, #author, #author-e {
+	display: inline;
+}
+#author {
+	font-size: 1.25em;
+	line-height: 1.4;
+	padding-right: 1em;
+}
+#author-e {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	line-height: 2;
+	text-align: right;
+}   			
+
+/* --- コンテンツ --- */
+#contents {
+	padding: 0;
+	text-align: left;
+}
+h2 {
+	background-image: url(../images/h2_midashi.gif);
+	background-repeat: no-repeat;
+	border-top: 0.15em solid #7F6706;
+	border-bottom: 0.15em solid #7F6706;
+	color: #7F6706;
+	font-size: 1.4em;
+	font-weight: bold;
+	height: 30px;
+	line-height: 1.78;
+	margin: 0;
+	padding-left: 3em; 
+}
+h3 {
+	border-left: 0.4em solid #cbcb7c;
+	font-size: 1.2em;
+	margin: 0.4em 0;
+	padding-left: 0.4em;	
+}
+
+/* パンくずリスト */
+ul#breadcrumbs{
+	background-color: #FFCC33;
+	margin: 0;
+	padding: 0.2em 1em 0;
+  	list-style: none;
+}
+#breadcrumbs li{
+  	display: inline;
+	line-height: 1.7;
+}
+
+#breadcrumbs li a{
+  	padding: 0;
+}
+
+/* メニュー */
+#menu {
+	margin: 1.5em 1em 1em;
+}
+#menu p {
+	margin: 0.5em 0;
+	padding: 0 1em;
+}
+#menu a, #menu a:hover {
+	text-decoration: none;
+}
+#caution {
+	 border: 0.3em double #CCCCCC;
+	 padding: 0.5em 1em;
+	 margin: 1em 1em 1.5em; 
+} 
+
+/* --- 検索フォーム --- */
+#search table tr th, table.search tr th {
+	background: #F3F3F3;
+	border-left: 0.3em solid #CCCCCC;
+}
+#search table tr td input {
+	width: 12em;
+}
+#search table tr td input[type="checkbox"] {
+	width: auto;
+} 
+#search table tr td {
+	vertical-align: middle;
+}
+#choose {
+	margin-bottom: 0;
+}
+
+/* 区切り */
+hr.split {
+  border: 0.19em solid #CC0000;
+}
+
+/* 増減アイコン */
+.fa-arrow-up {
+	color: #FF0000;
+}
+.fa-arrow-down {
+	color: #0000FF;
+}
+
+/* ボタン */
+.display-switch {
+	position: relative;
+}
+.display {
+	background-color: #FFFFFF;
+	border: 0.1em solid #888888;
+	border-radius: 0.4em;
+	color: #888888;
+	font-size: 0.9em;
+	line-height: 1.54;
+	position: absolute;
+	left: 78%;
+	top: 0;
+	text-align: center;
+	width: 8em;
+}
+.display:hover {
+	background-color: #666666;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+
+/* リンクメニュー */
+#menus {
+	position: fixed;
+	bottom: 0.1rem;
+	right: 1rem;
+}
+#arrow {
+	position: absolute;
+	cursor: pointer;
+	color: #CCCCCC;
+	z-index: 1000;
+}
+#linkMenus {
+	font-size: 0.9em;
+	margin: 3rem 0.1rem 0 3rem;
+	overflow: hidden;
+}
+#linkMenus button {
+	background-color: rgba(250,255,255,0.7);
+}
+#linkMenus button:hover {
+	background-color: rgba(135,140,140,0.7);
+}
+
+/* --- 検索結果 --- */
+.table {
+	margin-bottom: 1em;
+}
+.caution {
+	margin-left: 10%;
+}
+
+/* 会社情報・工場情報 */
+.companyTable caption {
+	background-color: #666666;
+	caption-side: top;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 0.5em;
+	text-align: left;
+}
+.companyTable th, .historyTable th {
+	background-color: #DDDDDD;
+}
+.companyTable th {
+	width: 40%;
+}
+.historyTable th {
+	text-align: center;
+}
+.historyTable td {
+	text-align: right;
+}
+.historyTable td:first-child {
+	text-align: left;
+}
+
+/* 排出データ */
+.resultTable caption, .chemicalReport caption {
+	caption-side: top;
+	font-size: 1em;
+	font-weight: bold;
+	padding: 0.1em 0;
+	text-align: right;
+}
+.resultTable th {
+	background-color: #666666;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 0.5em;
+}
+	
+.plain {
+	font-size: 0.9em;
+	font-weight: normal;
+}
+.reportHistory td {
+	text-align: right;
+}
+
+/* エラー表示 */
+td.error {
+	border: 2px dashed #FF0000;
+}
+
+/* 画像リンクの枠線を消す */
+img{
+  border: none;
+}
+
+/* --- フッター --- */
+#footer{
+	font-size: 0.9em;
+	margin: 1em 0 0;
+	text-align: center;
+}
+#address {
+	background-color: #EEEEEE;
+	padding: 0.5em 0;
+	margin-bottom: 0;
+}
+#footer-link {
+	margin: 0 0 0.5em;
+}
+
+/* ページネーション */
+#pagination{
+  padding-top: 0.5em;
+  padding-right: 0;
+  padding-bottom: 0.5em;
+  padding-left: 0;
+  text-align: left; /*Set to "right" to right align pagination interface*/
+  font-size: 115%;
+}
+#pagination a, #pagination a:visited{
+  padding: 0 5px;
+  border: 1px solid #CCCCCC;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+#pagination a:hover, #pagination a:active{
+  border: 1px solid #CCCCCC;
+  color: #FFFFFF;
+  background-color: #666666;
+}
+#pagination a.currentpage{
+  border-color: #CCCCCC;
+  font-weight: bold;
+  color: #FFFFFF !important;
+  background-color: #CCCCCC;
+  cursor: default;
+}
+#pagination a.prevnext{
+  font-weight: bold;
+}
+#pagination a.firstlast{
+  font-weight: bold;
+}
+
+/* リンクメニュー */
+#menus {
+	position: fixed;
+	bottom: 0.1rem;
+	right: 1rem;
+}
+#arrow {
+	position: absolute;
+	cursor: pointer;
+	color: #AAAAAA;
+	z-index: 1000;
+}
+#linkMenus {
+	font-size: 0.9em;
+	margin: 3rem 0.1rem 0 3rem;
+	overflow: hidden;
+}
+#linkMenus button {
+	background-color: rgba(255,250,255,0.7);
+}
+#linkMenus button:hover {
+	background-color: rgba(140,130,140,0.7);
+	color: #FFFFFF;
+}
+
+/* テーブルソート */
+.tablesorter-green th {
+	color: #000000;
+}
+
+/* 中型ディスプレイ 768px-1199px
+--------------------------------------------- */
+@media only screen and (min-width: 768px) {
+	#menu {
+		padding: 0 10em;
+	}
+	#caution {
+	 	margin: 1em 11em 1.5em;
+	}
+	#footer {
+		margin: auto 0 0;
+	}
+	h3 {
+		font-weight: bold;
+		margin: 0.4em 4.3em;
+	}
+	#search table, #choose, table.search {
+		margin: 0.4em 5em;
+		width: 80%;
+	}
+	#search table tr td input[type="text"] {
+		width: 90%;
+	}
+	.resultTable, .companyList, .factoryList, .compareList, hr.split {
+		margin: 0 5% 1em;
+		width: 90%;
+	}
+	.companyTable, .historyTable {
+		margin: 0.4em 5em 1em;
+		width: 80%;
+	}
+	h3.result, #pagination {
+		margin-left: 5%;
+	}
+	.graph {
+		margin: 0 5%;
+		width: 90%;
+	}
+}
+/* ====== 大型ディスプレイ ====== 1200px- 固定レイアウト */
+@media only screen and (min-width: 1200px) {
+	.screen {
+		margin: 0 auto;
+		max-width: 1200px;
+		width: 100%;
+	}
+}
