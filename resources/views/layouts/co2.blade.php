@@ -20,7 +20,7 @@
     </header>
  
     <!--- ここから本文 --->
-    <div class="content">
+    <div id="contents">
         @yield('content')
     </div>
 

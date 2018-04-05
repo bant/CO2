@@ -10,13 +10,13 @@
       <section>
         <h2>メニュー</h2>
         <div id="menu">
-          <a href="{{url('/search/Company')}}" title="事業者検索">
+          <a href="{{url('/company/search')}}" title="事業者検索">
             <button class="btn btn-warning btn-block btn-lg">
               <i class="fa fa-building" aria-hidden="true"></i>事業者検索
             </button>
           </a>
           <p>事業者名・住所から検索します。</p>
-          <a href="{{url('/search/Factory')}}" title="事業所検索">
+          <a href="{{url('/factory/search')}}" title="事業所検索">
             <button class="btn btn-warning btn-block btn-lg">
               <i class="fa fa-industry" aria-hidden="true"></i>事業所検索
             </button>

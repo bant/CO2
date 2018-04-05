@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\PrtrCo2;
 
 class Company extends Model
 {
@@ -34,5 +35,19 @@ class Company extends Model
         return $this->belongsTo('App\CompanyDivision','company_division_id');
     }
 
+    public function getFactoryCount()
+    {
+        return Factory::where('company_id', $this->id)->count();
+    }
+
+    public function getPrtrCo2()
+    {
+        $prtr = PrtrCo2::where('co2_company_id', $this->id)->first();
+
+        if ($prtr == null)
+            return 0;
+        else
+            return $prtr->prtr_company_id;
+    }
 
 }
