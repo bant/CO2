@@ -82,9 +82,10 @@ class CompanyController extends Controller
             abort('404');
         }
         
-        // 会社分類
         $years = RegistYear::select()->orderBy('id', 'asc')->get();
 
+        //  ここから検索結果用データの作成
+        //==================================
         $histories = array();
         $pre_total_sum = 0;
         $tmp = array();
@@ -110,8 +111,6 @@ class CompanyController extends Controller
             $total_sum = $total_sum_of_exharst + $total_sum_of_exharst;
             $tmp['TOTAL_SUM'] = $total_sum;
 
-    
-
             if ($pre_total_sum != 0 && $total_sum != 0)
             {
                 $tmp_zougen = ($total_sum - $pre_total_sum) / $total_sum * 100;
@@ -129,7 +128,57 @@ class CompanyController extends Controller
             arsort($histories);
         }
 
+        //  ここからグラフ表示用のデータ
+        //=================================
+        $graph_datasets = array();
+        $graph_labels = array();
+
+        $factory_pos = array();
+        $pos = 0;
+        foreach ($years as $year)
+        {
+            $graph_labels[] = $year->name;
+            unset($graph_data);
+            $total_data = 0;
+            foreach ($company->factories as $factory)
+            {
+                if (!isset($graph_item_pos[$factory->id]))
+                {
+                    $graph_item_pos[$factory->id] = $pos;
+                    $graph_item_name[$factory->id] = $factory->name;
+                    $pos++;
+                }
+                $graph_item_data[$factory_pos[$factory->id]] = $factory->getSumOfExharst($year->id);
+                $total_graph_data += $factory->getSumOfExharst($year->id);
+                
+                if ($total_graph_data > $max_graph_data) 
+                {
+                    $max_graph_data = $total_graph_data;
+                }
+            }
+
+            foreach($company->transporters as $transporters)
+            {
+                if (!isset($graph_item_pos[$factory->id]))
+                {
+                    $graph_item_pos[$factory->id] = $pos;
+                    $graph_item_name[$factory->id] = $factory->name;
+                    $pos++;
+                }
+                $graph_item_data[$factory_pos[$factory->id]] = $factory->getSumOfExharst($year->id);
+                $total_graph_data += $factory->getSumOfExharst($year->id);
+                
+                if ($total_graph_data > $max_graph_data) 
+                {
+                    $max_graph_data = $total_graph_data;
+                }
+            }
+        }
+
+
+        // ここから検索結果用データの作成
         // 工場を持っている会社のみ
+        //==================================
         $discharges = array();
         if ($company->getFactoryCount() != 0)
         {
@@ -169,6 +218,9 @@ class CompanyController extends Controller
                 }
             }
         }
+
+
+
         return view('company.info', compact('company', 'histories', 'discharges'));
     }
 }
