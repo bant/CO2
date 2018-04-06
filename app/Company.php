@@ -25,15 +25,50 @@ class Company extends Model
         return mb_strimwidth($value, 0, 128, "..");
     }
 
+    /**
+     * 登録年度テーブル関連付け
+     */
     public function regist_year()
     {
-        return $this->belongsTo('App\RegistYear','regist_year_id');
+        return $this->hasOne('App\RegistYear', 'id', 'regist_year_id');
     }
 
+    /**
+     * 会社分類テーブル関連付け
+     */
     public function company_division()
     {
-        return $this->belongsTo('App\CompanyDivision','company_division_id');
+        return $this->hasOne('App\CompanyDivision', 'id', 'company_division_id');
     }
+
+    /**
+     * 会社登録履歴テーブル関連付け
+     */
+    public function company_histories()
+    {
+        return $this->hasMany('App\CompanyHistory','company_id', 'id');
+    }
+
+    /**
+     * 工場テーブル関連付け
+     */
+    public function factories()
+    {
+//        return $this->hasMany('App\Factory','company_id', 'id');
+        return $this->hasMany('App\Factory');
+    }
+
+
+    /**
+     * 輸送者テーブル関連付け
+     */
+    public function transporters()
+    {
+//        return $this->hasMany('App\Factory','company_id', 'id');
+        return $this->hasMany('App\Transporter');
+    }
+
+
 
     public function getFactoryCount()
     {

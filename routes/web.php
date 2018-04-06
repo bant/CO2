@@ -20,6 +20,7 @@ Route::get('company/search', 'CompanyController@search');
 Route::get('company/list', 'CompanyController@list');
 Route::post('company/list', 'CompanyController@list');
 Route::get('company/info', 'CompanyController@info');
+Route::post('company/info', 'CompanyController@info');
 
 Route::get('factory/search', 'FactoryController@search');
 Route::get('factory/list', 'CompanyController@list');
