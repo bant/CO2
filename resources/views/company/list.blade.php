@@ -4,7 +4,7 @@
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
         <li><a href="{{url('/')}}">メニュー</a></li>
-        <li><a href="{{url('company/search')}}">事業者検索</a></li>
+        <li>&gt; <a href="{{url('company/search')}}">事業者検索</a></li>
         <li>&gt; 事業者リスト</li>
       </ul>
       <!-- /#breadcrumbs -->

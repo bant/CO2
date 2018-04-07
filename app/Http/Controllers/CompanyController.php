@@ -62,7 +62,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * 
+     * 事業者届出情報
      */
     public function info(Request $request)
     {
@@ -108,7 +108,7 @@ class CompanyController extends Controller
             }
             $tmp['TOTAL_SUM_OF_ENERGY_CO2'] = $total_sum_of_transpoers_energy_CO2;
 
-            $total_sum = $total_sum_of_exharst + $total_sum_of_exharst;
+            $total_sum = $total_sum_of_exharst + $total_sum_of_transpoers_energy_CO2;
             $tmp['TOTAL_SUM'] = $total_sum;
 
             if ($pre_total_sum != 0 && $total_sum != 0)
