@@ -133,48 +133,38 @@ class CompanyController extends Controller
         $graph_datasets = array();
         $graph_labels = array();
 
-        $factory_pos = array();
+        $graph_item_data = array();
+        $graph_item_pos = array();
         $pos = 0;
         foreach ($years as $year)
         {
             $graph_labels[] = $year->name;
-            unset($graph_data);
-            $total_data = 0;
             foreach ($company->factories as $factory)
             {
                 if (!isset($graph_item_pos[$factory->id]))
                 {
                     $graph_item_pos[$factory->id] = $pos;
-                    $graph_item_name[$factory->id] = $factory->name;
                     $pos++;
                 }
-                $graph_item_data[$factory_pos[$factory->id]] = $factory->getSumOfExharst($year->id);
-                $total_graph_data += $factory->getSumOfExharst($year->id);
-                
-                if ($total_graph_data > $max_graph_data) 
-                {
-                    $max_graph_data = $total_graph_data;
-                }
+                $graph_datasets[$graph_item_pos[$factory->id]]['POS'] = $graph_item_pos[$factory->id];
+                $graph_datasets[$graph_item_pos[$factory->id]]['NAME'] = $factory->name;
+                $graph_datasets[$graph_item_pos[$factory->id]]['DATA'][] = $factory->getSumOfExharst($year->id);
             }
 
-            foreach($company->transporters as $transporters)
+            foreach($company->transporters as $transporter)
             {
-                if (!isset($graph_item_pos[$factory->id]))
+                if (!isset($graph_item_pos[$transporter->id]))
                 {
-                    $graph_item_pos[$factory->id] = $pos;
-                    $graph_item_name[$factory->id] = $factory->name;
+                    $graph_item_pos[$transporter->id] = $pos;
                     $pos++;
                 }
-                $graph_item_data[$factory_pos[$factory->id]] = $factory->getSumOfExharst($year->id);
-                $total_graph_data += $factory->getSumOfExharst($year->id);
-                
-                if ($total_graph_data > $max_graph_data) 
-                {
-                    $max_graph_data = $total_graph_data;
-                }
+                $graph_datasets[$graph_item_pos[$transporter->id]]['POS'] = $graph_item_pos[$transporter->id];
+                $graph_datasets[$graph_item_pos[$transporter->id]]['NAME'] = "輸送排出量";
+                $graph_datasets[$graph_item_pos[$transporter->id]]['DATA'][] = $transporter->getEnergyCO2($year->id);
             }
         }
-
+//        dd($graph_labels);
+//        dd($graph_datasets);
 
         // ここから検索結果用データの作成
         // 工場を持っている会社のみ
@@ -221,7 +211,7 @@ class CompanyController extends Controller
 
 
 
-        return view('company.info', compact('company', 'histories', 'discharges'));
+        return view('company.info', compact('company', 'histories', 'graph_labels', 'graph_datasets','discharges'));
     }
 }
 

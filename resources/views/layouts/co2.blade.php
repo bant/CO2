@@ -36,8 +36,11 @@
     <!-- 以下、jsの読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{{url('/js/tools.js')}}"></script>
     <script src="{{url('/js/jquery.prettyPhoto.js')}}"></script>
     @yield('add_javascript')
+    <!-- ここまでjsの読み込み -->
+
 </body>
 </html>

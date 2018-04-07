@@ -149,6 +149,62 @@
         <p class="caution">※エネ起はエネルギー起源CO<sub>2</sub>、非エネは非エネルギー起源CO<sub>2</sub>、非エ廃は非エネルギー廃棄物原燃の略</p>
       </section>
       <!-- /事業所別内訳 -->
+@endsection
 
-
+@section('add_javascript')
+<script>
+  var ctx = document.getElementById("myChart").getContext('2d');
+      // 6色
+      var colors = ['rgba(70,132,238,0.6)', 'rgba(220,57,18,0.6)', 'rgba(255,153,0,0.6)', 'rgba(0,128,0,0.6)', 'rbga(73,66,204,0.6)', 'rgba(140,140,140,0.6)'];
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: [
+            @foreach ($graph_labels as $graph_label)
+            "{{$graph_label}}", 
+            @endforeach
+          ],
+          datasets: [
+          @foreach ($graph_datasets as $graph_dataset)
+          {
+              label: "{{$graph_dataset['NAME']}}",
+              borderWidth:1,
+              backgroundColor: ""+ colors[{{$graph_dataset['POS']}}] +"",
+              data: [
+                @foreach($graph_dataset['DATA'] as $graph_data)
+                {{$graph_data}},
+                @endforeach
+                ]
+          },
+          @endforeach
+        ]
+      },
+      options: {
+          title: {
+              display: true,
+              text: '温室効果ガス別排出量合計', //グラフの見出し
+              padding:3
+          },
+          scales: {
+              xAxes: [{
+                    stacked: true, //積み上げ棒グラフにする設定
+                    categoryPercentage:0.4 //棒グラフの太さ
+              }],
+              yAxes: [{
+                    stacked: true //積み上げ棒グラフにする設定
+              }]
+          },
+          legend: {
+              labels: {
+                    boxWidth:30,
+                    padding:20 //凡例の各要素間の距離
+              },
+              display: true
+          },
+          tooltips:{
+            mode:'label' //マウスオーバー時に表示されるtooltip
+          }
+        }
+      });
+    </script>
 @endsection
