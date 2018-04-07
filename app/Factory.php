@@ -30,7 +30,7 @@ class Factory extends Model
      */
     public function company()
     {
-        return $this->belongsTo('App\Company', 'id', 'company_id'); 
+        return $this->belongsTo('App\Company', 'company_id', 'id'); 
     }
 
     /**
@@ -74,11 +74,32 @@ class Factory extends Model
     }
 
     /**
+     * 年度テーブル関連付け
+     */
+    public function regist_year()
+    {
+        return $this->hasOne('App\RegistYear', 'id', 'regist_year_id');
+    }
+
+    /**
      * 中業種テーブル関連付け
      */
     public function factory_discharges()
     {
         return $this->hasMany('App\FactoryDischarge', 'factory_id', 'id');
+    }
+
+    /**
+     * 
+     */
+    public function getPrePercent($year_id)
+    {
+        $discharge = FactoryDischarge::where('factory_id', '=', $this->id)->where('regist_year_id', '=', $year_id)->first();
+
+        if ($discharge == null)
+            return 0;
+        else
+            return round($discharge->pre_percent, 2);   
     }
 
     /**

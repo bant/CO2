@@ -66,7 +66,7 @@
                   <td>{{$company->getFactoryCount()}}</td>
                   <td>{{$company->company_division->name}}</td>
                 </tr>
-                @endforeach
+              @endforeach
               </tbody>
             </table>
           </section>

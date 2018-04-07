@@ -23,8 +23,10 @@ Route::get('company/info', 'CompanyController@info');
 Route::post('company/info', 'CompanyController@info');
 
 Route::get('factory/search', 'FactoryController@search');
-Route::get('factory/list', 'CompanyController@list');
-Route::get('factory/info', 'CompanyController@info');
+Route::get('factory/list', 'FactoryController@list');
+Route::post('factory/list', 'FactoryController@list');
+Route::get('factory/info', 'FactoryController@info');
+Route::post('factory/info', 'FactoryController@info');
 
 // 比較
 Route::get('compare/MajorBusinessType', 'CompareController@major_business_type');
