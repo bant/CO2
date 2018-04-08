@@ -104,7 +104,7 @@ class FactoryController extends Controller
             $discharge = $factory->getDischargeByYear($year->id);
             if ($discharge != null)
             {
-                $tmp['YEAR_NAME'] = $year->name;
+                $tmp['YEAR_NAME'] = $year->name . "年";
                 $tmp['ENERGY_CO2'] = $discharge->energy_co2;
                 $tmp['NOENERGY_CO2'] = $discharge->noenergy_co2;
                 $tmp['NOENERGY_DIS_CO2'] = $discharge->noenergy_dis_co2;
@@ -116,7 +116,7 @@ class FactoryController extends Controller
                 $tmp['HFC'] = $discharge->hfc;
                 $tmp['SUM_OF_EXHARST'] = $discharge->sum_of_exharst;
                 $tmp['POWER_PLANT_ENERGY_CO2'] = $discharge->power_plant_energy_co2;
-                $tmp['PRE_PERCENT'] = $factory->getPrePercent($year->id);
+                $tmp['PRE_PERCENT'] = round($discharge->pre_percent, 2);
 
                 // データをプッシュし格納
                 array_push($histories, $tmp);
