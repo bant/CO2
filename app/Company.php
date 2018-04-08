@@ -58,7 +58,6 @@ class Company extends Model
         return $this->hasMany('App\Factory');
     }
 
-
     /**
      * 輸送者テーブル関連付け
      */
@@ -67,7 +66,6 @@ class Company extends Model
 //        return $this->hasMany('App\Factory','company_id', 'id');
         return $this->hasMany('App\Transporter');
     }
-
 
 
     public function getFactoryCount()

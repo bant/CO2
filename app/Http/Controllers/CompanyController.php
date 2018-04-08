@@ -68,8 +68,6 @@ class CompanyController extends Controller
     {
         // inputs
         $inputs = $request->all();
-    
-
         $id = isset($inputs['id']) ? $inputs['id'] : 0;     // company id
 
         // company_idが設定されてない場合アボート

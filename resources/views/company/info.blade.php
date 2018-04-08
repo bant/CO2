@@ -74,14 +74,15 @@
                 <td>{{$history['TOTAL_SUM_OF_EXHARST']}}</td>
                 <td>{{$history['TOTAL_SUM_OF_ENERGY_CO2']}}</td>
                 <td>{{$history['TOTAL_SUM']}}</td>
-                <td>{{$history['ZOUGEN']}}% 
+                <td>
+                {{$history['ZOUGEN']}}% 
                 @if ($history['ZOUGEN'] > 0)
                   <i class="fa fa-arrow-up"></i>
                 @elseif ($history['ZOUGEN'] < 0)
                   <i class="fa fa-arrow-down"></i>
                 @endif
                 </td>
-                @endforeach
+              @endforeach
               </tbody>
             </table>
           </section>
