@@ -8,7 +8,7 @@
       </ul>
       <!-- /#breadcrumbs -->
       <section>
-        <h2>メニュー</h2>
+        <h2>検索</h2>
         <div id="menu">
           <a href="{{url('/company/search')}}" title="事業者検索">
             <button class="btn btn-warning btn-block btn-lg">
