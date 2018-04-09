@@ -124,6 +124,19 @@ class FactoryController extends Controller
         }
         arsort($histories);
 
-        return view('factory.info' ,compact('factory', 'histories'));
+        //  ここからグラフ表示用のデータ
+        //=================================
+        $graph_datasets = array();
+        $graph_labels = array();
+
+        $pos = 0;
+        foreach ($years as $year)
+        {
+            $graph_labels[] = $year->name;
+            $graph_datasets[$pos] = $factory->getSumOfExharst($year->id);
+            $pos++;
+        }
+
+        return view('factory.info' ,compact('factory', 'graph_labels', 'graph_datasets','histories'));
     }
 }

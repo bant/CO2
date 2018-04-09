@@ -5,7 +5,7 @@
       <ul id="breadcrumbs">
         <li><a href="{{url('/')}}">メニュー</a></li>
         <li>&gt; <a href="{{url('factory/search')}}">事業所検索</a></li>
-        <li>&gt; <a href="{{url('factpry/list')}}">事業所リスト</a></li>
+        <li>&gt; <a href="{{url('factory/list')}}">事業所リスト</a></li>
         <li>&gt; 事業所排出情報</li>
       </ul>
       <!-- /#breadcrumbs -->
@@ -105,9 +105,7 @@
           <section>
             <hr class="split">
             <div class="display-switch">
-              <h3 class="result">事業所排出量グラフ(単位:tCO
-                <sub>2</sub>)
-              </h3>
+              <h3 class="result">事業所排出量グラフ(単位:tCO<sub>2</sub>)</h3>
               <div class="display">非表示にする</div>
             </div>
             <div class="graph">
@@ -173,9 +171,46 @@
             </p>
           </section>
           <!-- /事業所排出量内訳 -->
-
 @endsection
 
 @section('add_javascript')
-
+<script>
+      var ctx = document.getElementById("myChart").getContext('2d');
+      // 6色
+      var colors = ['rgba(70,132,238,0.6)', 'rgba(220,57,18,0.6)', 'rgba(255,153,0,0.6)', 'rgba(0,128,0,0.6)', 'rbga(73,66,204,0.6)', 'rgba(140,140,140,0.6)'];
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [
+            @foreach ($graph_labels as $graph_label)
+            "{{$graph_label}}", 
+            @endforeach
+          ],
+          datasets: [{
+            label: '{{$factory->name}}排出量合計',
+            data: [
+                @foreach($graph_datasets as $graph_data)
+                  {{$graph_data}},
+                @endforeach
+            ],
+            backgroundColor: ""+ colors[0] +""
+          }]
+        },
+        options: {
+          legend: {                            //凡例設定
+            display: false                 //表示設定
+          },
+          title: {
+            display: true,                 //表示設定
+            fontSize: 15,                  //フォントサイズ
+            text: '{{$factory->name}}排出量合計'                //ラベル
+          },
+          scales: {
+            xAxes: [{
+              categoryPercentage: 0.4 		//棒グラフの太さ
+            }]
+          }
+        }
+      });
+    </script>
 @endsection
