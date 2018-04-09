@@ -12,7 +12,7 @@
         <section>
         <h3>検索条件</h3>
         <!-- 検索フォーム -->
-        {!! Form::open(['url' => '/factory/list', 'method'=>'post','id'=>'search']) !!}
+        {!! Form::open(['url' => '/company/list', 'method'=>'post','id'=>'search']) !!}
             <table class="table table-bordered">
             <tbody>
               <tr>
