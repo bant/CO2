@@ -28,5 +28,4 @@ class FactoryDischarge extends Model
     {
         return $this->hasOne('App\RegistYear', 'id', 'regist_year_id');
     }
-
 }

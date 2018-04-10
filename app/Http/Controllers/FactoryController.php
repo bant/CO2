@@ -137,6 +137,6 @@ class FactoryController extends Controller
             $pos++;
         }
 
-        return view('factory.info' ,compact('factory', 'graph_labels', 'graph_datasets','histories'));
+        return view('factory.info' ,compact('factory', 'graph_labels', 'graph_datasets', 'histories'));
     }
 }

@@ -30,6 +30,7 @@ Route::post('factory/info', 'FactoryController@info');
 
 // 比較
 Route::get('compare/MajorBusinessType', 'CompareController@major_business_type');
+Route::post('compare/MajorBusinessType', 'CompareController@major_business_type');
 Route::get('compare/CompanyDivision', 'CompareController@company_division');
 Route::get('compare/Pref', 'CompareController@pref');
 Route::get('compare/Gas', 'CompareController@gas');
