@@ -178,7 +178,7 @@ class CompareController extends Controller
         $middle_business_types = MiddleBusinessType::select(DB::raw("co2_middle_business_type.id AS id, co2_middle_business_type.name AS name"))
                     ->join('co2_major_business_type','co2_major_business_type.id','=','co2_middle_business_type.major_business_type_id') 
                     ->where('co2_major_business_type.id', '=', $major_business_type_id )
-                    ->groupBy('co2_middle_business_type.id')
+//                    ->groupBy('co2_middle_business_type.id')
                     ->pluck('name','id');
         $middle_business_types->prepend('未選択', 0);    // 最初に追加
 
