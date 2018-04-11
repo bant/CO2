@@ -36,7 +36,7 @@ jQuery( function( $ ) {
   	  	  }, 200, 'swing', function(){
   	  	    $("#linkMenus .btn-sm").css('width', '20rem');
   	  	  });
-  	  	  $('#arrow').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right').attr('title', 'メニューを閉じる');
+  	  	  $('#arrow').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right').attr('title', 'メニューを閉じる').css('marginLeft', '-10rem');
   	  	  mode = 'open';
   	  	});
   	    break;
@@ -49,7 +49,7 @@ jQuery( function( $ ) {
   	  	  bottom: '0.1rem',
   	  	  right: '1rem'
   	  	}, 200, 'swing', function(){
-  	  	  $('#arrow').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left').attr('title', 'メニューを開く');
+  	  	  $('#arrow').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left').attr('title', 'メニューを開く').css('marginLeft', '0rem');
   	  	  mode = 'close';
   	  	});
    	}

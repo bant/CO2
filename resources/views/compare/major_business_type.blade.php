@@ -30,9 +30,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="2" class="center">
-                    {!! Form::submit('集　計', ['class' => 'btn btn-warning']) !!}
-                    </td>
+                    <td colspan="2" class="center">{!! Form::submit('集　計', ['class' => 'btn btn-warning']) !!}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -81,7 +79,7 @@
               @foreach ($discharges as $discharge)
                 <tr>
                   <td>
-                    <a href="/compare/MiddleBusinessType?id={{$discharge['MAJOR_BUSINESS_TYPE_ID']}}&regist_year={{$discharge['YEAR_ID']}}" title="{{$discharge['MAJOR_BUSINESS_TYPE_NAME']}}の中分類へ">{{$discharge['MAJOR_BUSINESS_TYPE_NAME']}}</a>
+                    <a href="/compare/MiddleBusinessType?major_business_type_id={{$discharge['MAJOR_BUSINESS_TYPE_ID']}}&regist_year_id={{$discharge['YEAR_ID']}}" title="{{$discharge['MAJOR_BUSINESS_TYPE_NAME']}}の中分類へ">{{$discharge['MAJOR_BUSINESS_TYPE_NAME']}}</a>
                   </td>
                   <td>{{$discharge['YEAR_ID']}}年</td>
                   <td>{{$discharge['SUM_ENERGY_CO2']}}</td>

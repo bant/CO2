@@ -16,12 +16,15 @@ Route::get('/', function () {
 });
 
 // 検索
+
+// 事業者検索
 Route::get('company/search', 'CompanyController@search');
 Route::get('company/list', 'CompanyController@list');
 Route::post('company/list', 'CompanyController@list');
 Route::get('company/info', 'CompanyController@info');
 Route::post('company/info', 'CompanyController@info');
 
+// 事業所検索
 Route::get('factory/search', 'FactoryController@search');
 Route::get('factory/list', 'FactoryController@list');
 Route::post('factory/list', 'FactoryController@list');
@@ -29,8 +32,12 @@ Route::get('factory/info', 'FactoryController@info');
 Route::post('factory/info', 'FactoryController@info');
 
 // 比較
+// 業種別比較
 Route::get('compare/MajorBusinessType', 'CompareController@major_business_type');
 Route::post('compare/MajorBusinessType', 'CompareController@major_business_type');
+Route::get('compare/MiddleBusinessType', 'CompareController@middle_business_type');
+Route::post('compare/MiddleBusinessType', 'CompareController@middle_business_type');
+
 Route::get('compare/CompanyDivision', 'CompareController@company_division');
 Route::get('compare/Pref', 'CompareController@pref');
 Route::get('compare/Gas', 'CompareController@gas');
