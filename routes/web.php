@@ -39,5 +39,6 @@ Route::get('compare/MiddleBusinessType', 'CompareController@middle_business_type
 Route::post('compare/MiddleBusinessType', 'CompareController@middle_business_type');
 
 Route::get('compare/CompanyDivision', 'CompareController@company_division');
+Route::post('compare/CompanyDivision', 'CompareController@company_division');
 Route::get('compare/Pref', 'CompareController@pref');
 Route::get('compare/Gas', 'CompareController@gas');

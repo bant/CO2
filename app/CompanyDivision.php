@@ -12,4 +12,13 @@ class CompanyDivision extends Model
      * @var string
      */
     protected $table = 'co2_company_division';
+
+    /**
+     * 会社テーブルと関連付け
+     */
+    public function company()
+    {
+        return $this->belongsTo('App\Company'); 
+    }
+
 }
