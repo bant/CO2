@@ -38,7 +38,14 @@ Route::post('compare/MajorBusinessType', 'CompareController@major_business_type'
 Route::get('compare/MiddleBusinessType', 'CompareController@middle_business_type');
 Route::post('compare/MiddleBusinessType', 'CompareController@middle_business_type');
 
+// 輸送排出者別 CO2排出量集計(指定区分)
 Route::get('compare/CompanyDivision', 'CompareController@company_division');
 Route::post('compare/CompanyDivision', 'CompareController@company_division');
-Route::get('compare/Pref', 'CompareController@pref');
+Route::get('compare/TransporterDivision', 'CompareController@transporter_division');
+
+// 都道府県別比較
+Route::get('compare/Pref', 'PrefCompareController@pref');
+Route::post('compare/Pref', 'PrefCompareController@pref');
+
+
 Route::get('compare/Gas', 'CompareController@gas');

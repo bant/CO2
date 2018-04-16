@@ -123,5 +123,4 @@ class Factory extends Model
         $discharge = FactoryDischarge::where('factory_id', '=', $this->id)->where('regist_year_id', '=', $year_id)->first();
         return $discharge;   
     }
-
 }

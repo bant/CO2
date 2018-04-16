@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\MajorBusinessType;
 use App\MiddleBusinessType;
 use App\RegistYear;
+use App\Factory;
 use App\FactoryDischarge;
 use App\Company;
 use App\CompanyDivision;
 use App\TransporterDischarge;
+use App\Pref;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -498,8 +500,16 @@ class CompareController extends Controller
         }
 
 
-
         // ToDO
         return view('compare.company_division' ,compact('company_divisions', 'regist_years', 'discharges', 'graph_labels', 'graph_datasets'));
+    }
+
+    /**
+     * 
+     */
+    public function transporter_division(Request $request)
+    {
+        // ToDO 
+        return view('compare.transporter_division');
     }
 }
