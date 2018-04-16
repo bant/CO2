@@ -165,7 +165,7 @@
                     fontSize: 11,
                     padding: 10 //凡例の各要素間の距離
               },
-              display: false
+              display: true
           },
           tooltips: {
             mode:'label' //マウスオーバー時に表示されるtooltip
