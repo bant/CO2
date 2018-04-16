@@ -173,7 +173,7 @@ class PrefCompareController extends Controller
             ->when($regist_year_id != 0, function ($query) use ($regist_year_id) {
                 return $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
             })  
-            ->groupBy('co2_factory_discharge.regist_year_id' , 'co2_factory.pref_id')
+            ->groupBy('co2_factory_discharge.regist_year_id' , 'co2_factory.pref_id', 'co2_pref.name')
             ->get();
 
         $temp_data = array();
