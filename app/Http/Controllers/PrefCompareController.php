@@ -99,6 +99,12 @@ class PrefCompareController extends Controller
             $graph_datas[self::$limit_pref]['DATA'][$year->id] = $tmp_sum;
         }
 
+        // 都道府県指定の時に、その他も含まれているので削除
+        if ($pref_id != 0)
+        {
+            unset($graph_datas[self::$limit_pref]);
+        }
+
         return array($graph_labels, $graph_datas);
     }
 
