@@ -75,27 +75,27 @@
                 </tr>
               </thead>
               <tbody>
-              @foreach ($discharges as $discharge)
+              @foreach ($table_datasets as $table_dataset)
                 <tr>
                   <td>
-                  <a href="/compare/FactoryByPref?id={{$discharge['PREF_ID']}}&regist_year_id={{$discharge['YEAR_ID']}}" title="{{$discharge['PREF_NAME']}}の事業所へ">{{$discharge['PREF_NAME']}}</a>
+                  <a href="/compare/FactoryByPref?id={{$table_dataset['PREF_ID']}}&regist_year_id={{$table_dataset['YEAR_ID']}}" title="{{$table_dataset['PREF_NAME']}}の事業所へ">{{$table_dataset['PREF_NAME']}}</a>
                   </td>
-                  <td>{{$discharge['YEAR_ID']}}年</td>
-                  <td>{{$discharge['SUM_ENERGY_CO2']}}</td>
-                  <td>{{$discharge['SUM_NOENERGY_CO2']}}</td>
-                  <td>{{$discharge['SUM_NOENERGY_DIS_CO2']}}</td>
-                  <td>{{$discharge['SUM_CH4']}}</td>
-                  <td>{{$discharge['SUM_N2O']}}</td>
-                  <td>{{$discharge['SUM_HFC']}}</td>
-                  <td>{{$discharge['SUM_PFC']}}</td>
-                  <td>{{$discharge['SUM_SF6']}}</td>
-                  <td>{{$discharge['SUM_OF_EXHARST']}}</td>
+                  <td>{{$table_dataset['YEAR_ID']}}年</td>
+                  <td>{{$table_dataset['SUM_ENERGY_CO2']}}</td>
+                  <td>{{$table_dataset['SUM_NOENERGY_CO2']}}</td>
+                  <td>{{$table_dataset['SUM_NOENERGY_DIS_CO2']}}</td>
+                  <td>{{$table_dataset['SUM_CH4']}}</td>
+                  <td>{{$table_dataset['SUM_N2O']}}</td>
+                  <td>{{$table_dataset['SUM_HFC']}}</td>
+                  <td>{{$table_dataset['SUM_PFC']}}</td>
+                  <td>{{$table_dataset['SUM_SF6']}}</td>
+                  <td>{{$table_dataset['SUM_OF_EXHARST']}}</td>
                   <td>
-                    @if ($discharge['PRE_PERCENT'] == -99999999 or $discharge['PRE_PERCENT'] == 0)
+                    @if ($table_dataset['PRE_PERCENT'] == -99999999 or $table_dataset['PRE_PERCENT'] == 0)
                       -
                     @else
-                      {{$discharge['PRE_PERCENT']}}%
-                      @if ($discharge['PRE_PERCENT'] > 0)
+                      {{$table_dataset['PRE_PERCENT']}}%
+                      @if ($table_dataset['PRE_PERCENT'] > 0)
                         <i class="fa fa-arrow-up"></i>
                       @else
                         <i class="fa fa-arrow-down"></i>

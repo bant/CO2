@@ -20,7 +20,7 @@ class PrefCompareController extends Controller
     /**
      * 
      */
-    private function getDischargeByPrefAll($pref_id)
+    private function getDischargeByPref($pref_id)
     {
         $result = array();
         $year_id  = 0;
@@ -63,16 +63,15 @@ class PrefCompareController extends Controller
     }
 
     /**
-     * 
+     * グラフデータ作成
      */
-    private function make_graph_data($pref_id)
+    private function makePrefGraphData($pref_id)
     {
-        $graph_datas = array();
+        $graph_datasets = array();
         $graph_labels = array();
 
         $year_list = RegistYear::select()->orderBy('id', 'asc')->get();
-
-        $pref_rank = self::getDischargeByPrefAll($pref_id);
+        $pref_rank = self::getDischargeByPref($pref_id);
 
         foreach ($year_list as $year)
         {
@@ -83,64 +82,38 @@ class PrefCompareController extends Controller
             {
                 if ($i < self::$limit_pref)
                 {
-                    $graph_datas[$i]['POS'] = $i;                    
-                    $graph_datas[$i]['ID'] = $pref_rank[$i]['ID'];
-                    $graph_datas[$i]['NAME'] = $pref_rank[$i]['NAME'];
-                    $graph_datas[$i]['DATA'][$year->id] = $pref_rank[$i]['DATA'][$year->id];
+                    $graph_datasets[$i]['POS'] = $i;                    
+                    $graph_datasets[$i]['ID'] = $pref_rank[$i]['ID'];
+                    $graph_datasets[$i]['NAME'] = $pref_rank[$i]['NAME'];
+                    $graph_datasets[$i]['DATA'][$year->id] = $pref_rank[$i]['DATA'][$year->id];
                 }
                 else
                 {
                     $tmp_sum += $pref_rank[$i]['DATA'][$year->id];
                 }
             }
-            $graph_datas[self::$limit_pref]['POS'] = self::$limit_pref;       
-            $graph_datas[self::$limit_pref]['ID'] = 0;
-            $graph_datas[self::$limit_pref]['NAME'] = "その他";
-            $graph_datas[self::$limit_pref]['DATA'][$year->id] = $tmp_sum;
+            $graph_datasets[self::$limit_pref]['POS'] = self::$limit_pref;       
+            $graph_datasets[self::$limit_pref]['ID'] = 0;
+            $graph_datasets[self::$limit_pref]['NAME'] = "その他";
+            $graph_datasets[self::$limit_pref]['DATA'][$year->id] = $tmp_sum;
         }
 
         // 都道府県指定の時に、その他も含まれているので削除
         if ($pref_id != 0)
         {
-            unset($graph_datas[self::$limit_pref]);
+            unset($graph_datasets[self::$limit_pref]);
         }
 
-        return array($graph_labels, $graph_datas);
+        return array($graph_labels, $graph_datasets);
     }
 
     /**
-     * 都道府県比較
+     * 比較結果表の作成
      */
-    public function pref(Request $request)
+    private function makePrefTableData($pref_id, $regist_year_id)
     {
-        // inputs
-
-        $inputs = $request->all();
-
-        $pref_id = isset($inputs['pref_id']) ? $inputs['pref_id'] : 0; 
-        $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
-
-
-//        dd($graph_datas);
-
-/*
-        $company_division = CompanyDivision::find($company_division_id);
-        // CompanyDivisionが検索失敗する場合はアボート
-        if ($company_division == null) {
-            abort('404');
-        }
-*/
-        $prefs = Pref::all()->pluck('name','id');; 
-        $prefs->prepend('未選択', 0);    // 最初に追加
-
-        $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
-        $regist_years->prepend('未選択', 0);    // 最初に追加
-
-
-
-        // 比較結果表の作成
-        //=====================================
         // 年度毎の集計
+        //=====================================
         $total_exharst = array();
         $years = RegistYear::select()->orderBy('id', 'asc')->get();
         foreach($years as $year)
@@ -166,6 +139,7 @@ class PrefCompareController extends Controller
             SUM(co2_factory_discharge.ch4) AS sum_ch4,
             SUM(co2_factory_discharge.n2o) AS sum_n2o,
             SUM(co2_factory_discharge.hfc) AS sum_hfc,
+            SUM(co2_factory_discharge.pfc) AS sum_pfc,
             SUM(co2_factory_discharge.sf6) AS sum_sf6,
             SUM(co2_factory_discharge.sum_of_exharst) AS sum_of_exharst,
             SUM(co2_factory_discharge.power_plant_energy_co2) AS sum_power_plant_energy_co2"
@@ -184,7 +158,7 @@ class PrefCompareController extends Controller
 
         $temp_data = array();
         $pre_sum = array();
-        $discharges = array();
+        $table_datasets = array();
         foreach($tmp_datas as $tmp_data)
         {
             $temp_data['YEAR_ID'] = $tmp_data->year_id;
@@ -196,7 +170,7 @@ class PrefCompareController extends Controller
             $temp_data['SUM_CH4'] = $tmp_data->sum_ch4;
             $temp_data['SUM_N2O'] = $tmp_data->sum_n2o;
             $temp_data['SUM_HFC'] = $tmp_data->sum_hfc;
-            $temp_data['SUM_PFC'] = $tmp_data->sum_sf6;
+            $temp_data['SUM_PFC'] = $tmp_data->sum_pfc;
             $temp_data['SUM_SF6'] = $tmp_data->sum_sf6;
             $temp_data['SUM_OF_EXHARST'] = $tmp_data->sum_of_exharst;
             $temp_data['SUM_POWER_PLANT_ENERGY_CO2'] = $tmp_data->sum_power_plant_energy_co2;
@@ -231,12 +205,37 @@ class PrefCompareController extends Controller
                     $temp_data['PRE_PERCENT'] = -99999999;
                 }
             }
-            array_push($discharges, $temp_data);
+            array_push($table_datasets, $temp_data);
         }
 
-        list($graph_labels, $graph_datasets) = self::make_graph_data($pref_id);
+        return $table_datasets;
+    }
 
-        // ToDO 
-        return view('compare.pref', compact('prefs', 'regist_years', 'discharges', 'graph_labels', 'graph_datasets'));
+    /**
+     * 都道府県比較
+     */
+    public function pref(Request $request)
+    {
+        // 引数の処理
+        $inputs = $request->all();
+        $pref_id = isset($inputs['pref_id']) ? $inputs['pref_id'] : 0; 
+        $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
+
+        // 選択データの作成
+        $prefs = Pref::all()->pluck('name','id');; 
+        $prefs->prepend('未選択', 0);    // 最初に追加
+        $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
+        $regist_years->prepend('未選択', 0);    // 最初に追加
+
+        // 表データの作成
+        $table_datasets = self::makePrefTableData($pref_id, $regist_year_id);
+
+   //     dd($table_datasets);
+
+        // グラフデータの作成
+        list($graph_labels, $graph_datasets) = self::makePrefGraphData($pref_id);
+
+        // ビューへの渡し
+        return view('compare.pref', compact('prefs', 'regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
     }
 }

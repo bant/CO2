@@ -47,5 +47,6 @@ Route::get('compare/TransporterDivision', 'CompareController@transporter_divisio
 Route::get('compare/Pref', 'PrefCompareController@pref');
 Route::post('compare/Pref', 'PrefCompareController@pref');
 
-
-Route::get('compare/Gas', 'CompareController@gas');
+//
+Route::get('compare/Gas', 'GasCompareController@gas');
+Route::post('compare/Gas', 'GasCompareController@gas');
