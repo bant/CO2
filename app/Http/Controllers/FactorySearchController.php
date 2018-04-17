@@ -8,7 +8,7 @@ use App\Pref;
 use App\MajorBusinessType;
 use App\RegistYear;
 
-class FactoryController extends Controller
+class FactorySearchController extends Controller
 {
     /**
      * 事業所検索(indexより)

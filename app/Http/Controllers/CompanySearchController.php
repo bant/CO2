@@ -7,7 +7,7 @@ use App\Company;
 use App\CompanyDivision;
 use App\RegistYear;
 
-class CompanyController extends Controller
+class CompanySearchController extends Controller
 {
     /**
      * 事業者検索(indexより)
