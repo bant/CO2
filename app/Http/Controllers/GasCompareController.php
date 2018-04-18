@@ -19,7 +19,6 @@ class GasCompareController extends Controller
         $result = array();   
         $year_list = RegistYear::select()->orderBy('id', 'asc')->get();
 
-//        dd($gas_id);
         foreach ($year_list as $year) {
             $regist_year_id = $year->id;
             $tmp_data = FactoryDischarge::select(DB::raw(
@@ -42,10 +41,6 @@ class GasCompareController extends Controller
                 ->first();
 
 
-//            dd($tmp_datas);
-//            foreach($tmp_datas as $tmp_data)
-//            {
-                // 仮の順位をつけて登録
                 if ($gas_id == 'all' || $gas_id == 'energy_co2') {
                     $result[0]['NAME'] = 'エネ起';
                     $result[0]['DATA'][$year->id] = $tmp_data->sum_of_energy_co2;
@@ -91,7 +86,6 @@ class GasCompareController extends Controller
                     $result[8]['DATA'][$year->id] = $tmp_data->sum_of_power_plant_energy_co2;
                 }
                 $year_id = $year->id;
-  //          }
         }
   
         foreach ($result as $key => $row) 
@@ -113,8 +107,7 @@ class GasCompareController extends Controller
 
         $year_list = RegistYear::select()->orderBy('id', 'asc')->get();
         $gas_rank = self::getRankByGassAll($gas_id);
-
-//        dd($gas_rank);
+        
         foreach ($year_list as $year)
         {
             $graph_labels[] = $year->name;
@@ -144,7 +137,6 @@ class GasCompareController extends Controller
             unset($graph_datasets[self::$limit_gas]);
         }
 
-//        dd($graph_datasets);
         return array($graph_labels, $graph_datasets);
     }
 
@@ -180,7 +172,6 @@ class GasCompareController extends Controller
             SUM(co2_factory_discharge.sum_of_exharst) AS sum_of_sum_of_exharst,
             SUM(co2_factory_discharge.power_plant_energy_co2) AS sum_of_power_plant_energy_co2"
             ))
- //           ->join('co2_factory_discharge','co2_factory.id','=','co2_factory_discharge.factory_id')
             ->when($regist_year_id != 0, function ($query) use ($regist_year_id) {
                 return $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
             })  
@@ -328,12 +319,13 @@ class GasCompareController extends Controller
         // 選択データの作成
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加
+
         // テーブルフデータの作成
         $table_datasets = self::makeGasTableData($gas_id, $regist_year_id);
+
         // グラフデータの作成
         list($graph_labels, $graph_datasets) = self::makeGasGraphData($gas_id, $regist_year_id);
 
-//        dd($table_datasets);
         return view('compare.gas', compact('regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
     }
 }

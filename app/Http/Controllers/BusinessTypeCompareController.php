@@ -13,18 +13,11 @@ use Illuminate\Support\Facades\DB;
 class BusinessTypeCompareController extends Controller
 {
 
-
     /**
-     * 業種別比較(大分類)
+     * 比較結果表の作成
      */
-    public function major_business_type(Request $request)
+    private function makeMajorBusinessTypeTableData($major_business_type_id, $regist_year_id)
     {
-        // inputs
-        $inputs = $request->all();
-
-        $major_business_type_id = isset($inputs['major_business_type_id']) ? $inputs['major_business_type_id'] : 1;
-        $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
-
         // 比較結果表の作成
         //=====================================
         // 年度毎の集計
@@ -123,16 +116,22 @@ class BusinessTypeCompareController extends Controller
             array_push($discharges, $temp_data);
         }
 
-        // グラフデータの作成
-        //====================================
+        return $discharges;
+    }
+
+    /**
+     * グラフデータ作成
+     */
+    private function makeMajorBusinessTypeGraphData($major_business_type_id, $regist_year_id)
+    {
         $graph_dataset = array();
         $graph_labels = array();
         $tmp_graph_datas = array();
 
+        $years = RegistYear::select()->orderBy('id', 'asc')->get();
         $major_business_type = MajorBusinessType::find($major_business_type_id);
 
         $graph_dataset['NAME'] = $major_business_type->name;
-
         $tmp_graph_datas =  FactoryDischarge::select(DB::raw("SUM(sum_of_exharst) AS sum_of_exharst"))
                 ->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id') 
                 ->where('co2_factory.major_business_type_id', '=', $major_business_type_id)
@@ -143,21 +142,39 @@ class BusinessTypeCompareController extends Controller
         {
             $graph_dataset['DATA'][] = $tmp_graph_data->sum_of_exharst;
         }
+        
 
         foreach ($years as $year)
         {
             $graph_labels[] = $year->name;
         }
 
+        return array($graph_labels, $graph_dataset);
+    }
+
+    /**
+     * 業種別比較(大分類)
+     */
+    public function major_business_type(Request $request)
+    {
+        // 引数の処理
+        $inputs = $request->all();
+        $major_business_type_id = isset($inputs['major_business_type_id']) ? $inputs['major_business_type_id'] : 1;
+        $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
+
+        // 選択データの作成
         $major_business_types = MajorBusinessType::all()->pluck('name','id');
- 
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加
 
-        // ToDO
-        return view('compare.major_business_type' ,compact('major_business_types', 'graph_labels', 'graph_dataset', 'regist_years', 'discharges'));
-    }
+        // テーブルデータの作成
+        $discharges = self::makeMajorBusinessTypeTableData($major_business_type_id, $regist_year_id);
+        // グラフデータの作成
+        list($graph_labels, $graph_dataset) = self::makeMajorBusinessTypeGraphData($major_business_type_id, $regist_year_id);
 
+        // ToDO
+        return view('compare.major_business_type' ,compact('major_business_types', 'regist_years', 'graph_labels', 'graph_dataset', 'discharges'));
+    }
 
     /**
      * 業種別比較(中分類)
