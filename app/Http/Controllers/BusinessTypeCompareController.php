@@ -377,7 +377,7 @@ class BusinessTypeCompareController extends Controller
         {
             $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
         }
-        $query->groupBy('co2_factory_discharge.regist_year_id', 'co2_factory_discharge.id');
+        $query->groupBy('co2_factory_discharge.regist_year_id', 'co2_factory_discharge.id', 'co2_factory_discharge.factory_id');
         $query->orderBy('co2_factory_discharge.sum_of_exharst', 'DESC');
         $table_count = $query->count();
         $table_datasets = $query->paginate(10);
