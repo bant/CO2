@@ -9,8 +9,8 @@
     <title>@yield('title')</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{url('/css/style.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('/css/theme.green.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url('/css/style.css')}}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <!-- ここからscreen -->

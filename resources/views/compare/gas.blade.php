@@ -67,7 +67,7 @@
         <section>
         <hr class="split">
         <h3 class="result">比較結果(単位:tCO<sub>2</sub>)</h3>
-        <table id="resultTable" class="table table-bordered table-striped resultTable">
+        <table id="resultTable" class="table table-bordered table-striped resultTable tablesorter-green">
           <thead>
             <tr>
               <th>温室効果ガス</th>
