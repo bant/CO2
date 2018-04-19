@@ -10,10 +10,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{url('/css/style.css')}}" type="text/css" rel="stylesheet">
-    <link href="{{url('/css/prettyPhoto.css')}}" type="text/css" rel="stylesheet"/>
+    <link href="{{url('/css/theme.green.css')}}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div class="screen">        <!-- ここからscreen -->
+<!-- ここからscreen -->
+<div class="screen">
     <!--- ここからヘッダ --->
     <header>
     @include('commons.header')
@@ -31,7 +32,8 @@
         <address id="address">@include('commons.footer',['year'=>Carbon\Carbon::now()->format('Y')])</address>
     </footer>
 
-</div>                      <!-- ここまでscreen -->
+</div>
+<!-- ここまでscreen -->
 
     <!-- 以下、jsの読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -39,7 +41,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{{url('/js/jquery.tablesorter.js')}}"></script>
     <script src="{{url('/js/tools.js')}}"></script>
-    <script src="{{url('/js/jquery.prettyPhoto.js')}}"></script>
     @yield('add_javascript')
     <!-- ここまでjsの読み込み -->
 

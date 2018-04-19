@@ -29,7 +29,6 @@ body {
 img {
   border: none;
 }
-
 a{
   text-decoration: none;
 }
@@ -53,7 +52,7 @@ a:hover{
 	text-align: center;
 }
 h1 {
-	background-color: #CCA50A;
+	background-color: #8C5400;
 	color: #FFFFFF;
 	font-size: 1.5em;
 	height: 2.75em;
@@ -252,20 +251,30 @@ hr.split {
 }
 
 /* 排出データ */
-.resultTable caption, .chemicalReport caption {
+#resultTable caption, .chemicalReport caption {
 	caption-side: top;
 	font-size: 1em;
 	font-weight: bold;
 	padding: 0.1em 0;
 	text-align: right;
 }
-.resultTable th {
+#resultTable th {
 	background-color: #666666;
 	color: #FFFFFF;
 	font-weight: bold;
 	padding: 0.5em;
+	text-align: center;
 }
-	
+#resultTable td {
+	text-align: right;
+}
+#resultTable td:first-child {
+	text-align: left;
+}
+
+.tablesorter-header-inner {
+	color: #006600;
+}	
 .plain {
 	font-size: 0.9em;
 	font-weight: normal;
@@ -300,48 +309,17 @@ img{
 }
 
 /* ページネーション */
-#pagination{
-  padding-top: 0.5em;
-  padding-right: 0;
-  padding-bottom: 0.5em;
-  padding-left: 0;
-  text-align: left; /*Set to "right" to right align pagination interface*/
-  font-size: 115%;
-}
-#pagination a, #pagination a:visited{
-  padding: 0 5px;
-  border: 1px solid #CCCCCC;
-  font-weight: bold;
-  color: #000;
-  text-decoration: none;
-}
-#pagination a:hover, #pagination a:active{
-  border: 1px solid #CCCCCC;
-  color: #FFFFFF;
-  background-color: #666666;
-}
-#pagination a.currentpage{
-  border-color: #CCCCCC;
-  font-weight: bold;
-  color: #FFFFFF !important;
-  background-color: #CCCCCC;
-  cursor: default;
-}
-#pagination a.prevnext{
-  font-weight: bold;
-}
-#pagination a.firstlast{
-  font-weight: bold;
+ul.pagination{
+	margin-left: 4.3em;
 }
 
 /* リンクメニュー */
 #menus {
 	position: fixed;
 	bottom: 0.1rem;
-	right: 1rem;
+	right: 2rem;
 }
 #arrow {
-	position: absolute;
 	cursor: pointer;
 	color: #AAAAAA;
 	z-index: 1000;
@@ -395,7 +373,7 @@ img{
 		margin: 0.4em 5em 1em;
 		width: 80%;
 	}
-	h3.result, #pagination {
+	h3.result, ul.pagination {
 		margin-left: 5%;
 	}
 	.graph {
