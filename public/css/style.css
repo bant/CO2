@@ -251,14 +251,14 @@ hr.split {
 }
 
 /* 排出データ */
-#resultTable caption, .chemicalReport caption {
+#resultTable caption, .chemicalReport caption, .resultTable caption {
 	caption-side: top;
 	font-size: 1em;
 	font-weight: bold;
 	padding: 0.1em 0;
 	text-align: right;
 }
-#resultTable th {
+#resultTable th, .resultTable th {
 	background-color: #666666;
 	color: #FFFFFF;
 	font-weight: bold;
@@ -272,9 +272,6 @@ hr.split {
 	text-align: left;
 }
 
-.tablesorter-header-inner {
-	color: #006600;
-}	
 .plain {
 	font-size: 0.9em;
 	font-weight: normal;
@@ -341,6 +338,10 @@ ul.pagination{
 .tablesorter-green th {
 	color: #000000;
 }
+.tablesorter-header-inner {
+	color: #006600;
+}
+
 
 /* 中型ディスプレイ 768px-1199px
 --------------------------------------------- */
