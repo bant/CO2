@@ -315,7 +315,7 @@ class BusinessTypeCompareController extends Controller
                 ->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id')
                 ->where('co2_factory.major_business_type_id', '=', $major_business_type_id)
                 ->where('co2_factory_discharge.regist_year_id', '=', $year->id)
-                ->groupBy('co2_factory.middle_business_type_id', 'co2_factory_discharge.regist_year_id')
+                ->groupBy('co2_factory.middle_business_type_id', 'co2_factory_discharge.regist_year_id' ,'co2_factory_discharge.factory_id')
                 ->get();
 
             $graph_labels[] = $year->name;
@@ -382,7 +382,7 @@ class BusinessTypeCompareController extends Controller
         $table_count = $query->count();
         $table_datasets = $query->paginate(10);
 
-        dd($table_count);
+//        dd($table_count);
         return array($table_count, $table_datasets);
     }
 
@@ -423,6 +423,7 @@ class BusinessTypeCompareController extends Controller
         $pagement_params =  $inputs;
         unset($pagement_params['_token']);
 
+        // ToDo: カウントがおかしい!! 要修正 
         return view('compare.factory_by_middle_business_type' ,compact('major_business_type', 'middle_business_type', 'regist_year_id', 'table_count', 'table_datasets', 'pagement_params'));
     }
 }
