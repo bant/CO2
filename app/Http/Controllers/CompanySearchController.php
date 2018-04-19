@@ -90,7 +90,7 @@ class CompanySearchController extends Controller
         // 年度毎にデータをまとめる
         foreach ($years as $year) 
         {
-            $tmp['YEAR_NAME'] = $year->name . "年";
+            $tmp['YEAR_NAME'] = $year->name;
 
             $total_sum_of_exharst = 0;
             foreach ($company->factories as $factory)

@@ -18,7 +18,7 @@ class FactoryDischarge extends Model
      */
     public function factory()
     {
-        return $this->belongsTo('App\Factory', 'id', 'factory_id'); 
+        return $this->belongsTo('App\Factory', 'factory_id', 'id'); 
     }
 
     /**

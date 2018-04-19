@@ -84,7 +84,7 @@
               @foreach ($discharges as $discharge)
                 <tr>
                   <td>
-                    <a href="/compare/FactoryByMiddleBusinessType/1/1/2014" title="{{$discharge['MIDDLE_BUSINESS_TYPE_NAME']}}の事業所へ">{{$discharge['MIDDLE_BUSINESS_TYPE_NAME']}}</a>
+                    <a href="/compare/MiddleBusinessType/factory?major={{$major_business_type->id}}&middle={{$discharge['MIDDLE_BUSINESS_TYPE_ID']}}&year={{$discharge['YEAR_ID']}}" title="{{$discharge['MIDDLE_BUSINESS_TYPE_NAME']}}の事業所へ">{{$discharge['MIDDLE_BUSINESS_TYPE_NAME']}}</a>
                   </td>
                   <td>{{$discharge['YEAR_ID']}}年</td>
                   <td>{{$discharge['SUM_ENERGY_CO2']}}</td>

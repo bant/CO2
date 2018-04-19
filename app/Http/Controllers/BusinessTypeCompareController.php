@@ -350,4 +350,79 @@ class BusinessTypeCompareController extends Controller
         return view('compare.middle_business_type' ,compact('major_business_type', 'middle_business_types', 'regist_years', 'regist_year_id', 'discharges', 'graph_labels', 'graph_datasets'));
     }
 
+    //========================================================
+
+    /**
+     * 
+     */
+
+    /**
+     * 比較結果表の作成
+     */
+    private function makeFactoryByMiddleBusinessTypeTableData($major_business_type_id, $middle_business_type_id, $regist_year_id)
+    {
+        // 問い合わせSQLを構築
+        $query = FactoryDischarge::query();
+        $query->select('*','co2_factory_discharge.regist_year_id as discharge_regist_year_id');
+        $query->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id');
+        if ($major_business_type_id != 0)
+        {
+            $query->where('co2_factory.major_business_type_id', '=', $major_business_type_id);
+        }
+        if ($middle_business_type_id != 0)
+        {
+            $query->where('co2_factory.middle_business_type_id', '=', $middle_business_type_id);
+        }
+        if ($regist_year_id != 0)
+        {
+            $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
+        }
+        $query->groupBy('co2_factory_discharge.regist_year_id', 'co2_factory_discharge.id');
+        $query->orderBy('co2_factory_discharge.sum_of_exharst', 'DESC');
+        $table_count = $query->count();
+        $table_datasets = $query->paginate(10);
+
+        dd($table_count);
+        return array($table_count, $table_datasets);
+    }
+
+    /**
+     * 
+     */
+    public function factory_by_middle_business_type(Request $request)
+    {
+        // 引数の処理
+        $inputs = $request->all();
+        $major_business_type_id = isset($inputs['major']) ? $inputs['major'] : 0;
+        $middle_business_type_id = isset($inputs['middle']) ? $inputs['middle'] : 0;
+        $regist_year_id = isset($inputs['year']) ? $inputs['year'] : 0;
+
+        // factoryy_idが設定されてない場合アボート
+        if ($major_business_type_id == 0) {
+            abort('404');
+        }
+        
+        $major_business_type = MajorBusinessType::find($major_business_type_id);
+        if ($major_business_type == null) {
+            abort('404');
+        }
+
+        // factoryy_idが設定されてない場合アボート
+        if ($major_business_type_id == 0) {
+            abort('404');
+        }
+                
+        $middle_business_type = MiddleBusinessType::find($middle_business_type_id);
+        if ($major_business_type == null) {
+            abort('404');
+        }
+
+        // テーブルデータの作成
+        list($table_count, $table_datasets) = self::makeFactoryByMiddleBusinessTypeTableData($major_business_type_id, $middle_business_type_id, $regist_year_id);
+
+        $pagement_params =  $inputs;
+        unset($pagement_params['_token']);
+
+        return view('compare.factory_by_middle_business_type' ,compact('major_business_type', 'middle_business_type', 'regist_year_id', 'table_count', 'table_datasets', 'pagement_params'));
+    }
 }

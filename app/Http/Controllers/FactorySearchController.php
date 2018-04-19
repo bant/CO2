@@ -70,7 +70,7 @@ class FactorySearchController extends Controller
         $pagement_params =  $inputs;
         unset($pagement_params['_token']);
  
-        return view('factory.list', compact('factory_prefs', 'major_business_types', 'factory_count','factories', 'pagement_params'));
+        return view('factory.list', compact('factory_prefs', 'major_business_types', 'factory_count', 'factories', 'pagement_params'));
     }
 
     /**
@@ -104,7 +104,7 @@ class FactorySearchController extends Controller
             $discharge = $factory->getDischargeByYear($year->id);
             if ($discharge != null)
             {
-                $tmp['YEAR_NAME'] = $year->name . "年";
+                $tmp['YEAR_NAME'] = $year->name;
                 $tmp['ENERGY_CO2'] = $discharge->energy_co2;
                 $tmp['NOENERGY_CO2'] = $discharge->noenergy_co2;
                 $tmp['NOENERGY_DIS_CO2'] = $discharge->noenergy_dis_co2;
