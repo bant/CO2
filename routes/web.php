@@ -43,6 +43,7 @@ Route::get('compare/MiddleBusinessType/factory', 'BusinessTypeCompareController@
 Route::get('compare/CompanyDivision', 'DivisionCompareController@company_division');
 Route::post('compare/CompanyDivision', 'DivisionCompareController@company_division');
 Route::get('compare/TransporterDivision', 'DivisionCompareController@transporter_division');
+Route::post('compare/TransporterDivision', 'DivisionCompareController@transporter_division');
 
 // 都道府県別比較
 Route::get('compare/Pref', 'PrefCompareController@pref');

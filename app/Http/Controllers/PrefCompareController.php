@@ -18,7 +18,7 @@ class PrefCompareController extends Controller
     private static $limit_pref = 5;
 
     /**
-     * 
+     * 都道府県別にCO2を取得する。
      */
     private function getDischargeByPref($pref_id)
     {
