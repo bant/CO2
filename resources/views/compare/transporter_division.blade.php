@@ -49,9 +49,7 @@
           <section>
             <hr class="split">
             <div class="display-switch">
-              <h3 class="result">比較グラフ(単位:tCO
-                <sub>2</sub>)
-              </h3>
+              <h3 class="result">比較グラフ(単位:tCO<sub>2</sub>)</h3>
               <div class="display">非表示にする</div>
             </div>
             <div class="graph">
@@ -79,7 +77,7 @@
               @foreach ($table_datasets as $table_dataset)
                 <tr>
                 <td>
-                  <a href="/compare/FactoryByTransporterDivision/11/1/2014" title="{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}の事業者一覧へ">{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}</a>
+                  <a href="/compare/FactoryByTransporterDivision?company_division_id={{$table_dataset['COMPANY_DIVISION_ID']}}&transporter_division_id={{$table_dataset['TRANSPORTER_DIVISION_ID']}}&year={{$table_dataset['YEAR_ID']}}" title="{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}の事業者一覧へ">{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}</a>
                 </td>
                 <td>{{$table_dataset['YEAR_ID']}}</td>
                 <td>{{$table_dataset['SUM_ENERGY_CO2']}}</td>

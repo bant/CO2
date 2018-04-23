@@ -18,7 +18,7 @@ class Transporter extends Model
      */
     public function company()
     {
-        return $this->belongsTo('App\Company', 'id', 'company_id'); 
+        return $this->belongsTo('App\Company', 'company_id', 'id'); 
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\RegistYear;
 use App\Company;
 use App\CompanyDivision;
+use App\Transporter;
 use App\TransporterDischarge;
 use App\TransporterDivision;
 
@@ -377,6 +378,7 @@ class DivisionCompareController extends Controller
         {
             $transporter_division = TransporterDivision::find($tmp_data->transporter_division_id);
             $temp_data['YEAR_ID'] = $tmp_data->year_id;
+            $temp_data['COMPANY_DIVISION_ID'] = $company_division_id;
             $temp_data['TRANSPORTER_DIVISION_NAME'] = $transporter_division->name;
             $temp_data['TRANSPORTER_DIVISION_ID'] = $tmp_data->transporter_division_id;
             $temp_data['SUM_ENERGY_CO2'] = $tmp_data->sum_energy_co2;
@@ -412,5 +414,118 @@ class DivisionCompareController extends Controller
         list($graph_labels, $graph_datasets)  = self::makeTransporterDivisionGraphData($transporter_division_id);
 
         return view('compare.transporter_division' ,compact('f_company_division' ,'transporter_divisions', 'regist_years', 'table_datasets',  'graph_labels', 'graph_datasets'));
+    }
+
+    /**
+     * 
+     */
+    public function factory_by_company_division(Request $request)
+    {
+        // 引数処理
+        $inputs = $request->all();
+        $company_division_id = isset($inputs['id']) ? $inputs['id'] : 0; // 設定されてないときは農業  
+        $regist_year_id = isset($inputs['year']) ? $inputs['year'] : 0;
+
+        // $company_division_id が設定されてない場合アボート
+        if ($company_division_id == 0) {
+            abort('404');
+        }
+        $company_division = CompanyDivision::find($company_division_id);
+        if ($company_division == null) {
+            abort('404');
+        }
+
+        // $regist_year_id が設定されてない場合アボート
+        if ($regist_year_id == 0) {
+            abort('404');
+        }
+        $regist_year = RegistYear::find($regist_year_id);
+        if ($regist_year == null) {
+            abort('404');
+        }
+
+        // 問い合わせSQLを構築
+        $query = Transporter::query();
+        $query->select('*', 'co2_transporter_discharge.regist_year_id AS t_d_regist_year_id');
+        $query->join('co2_transporter_discharge', 'co2_transporter_discharge.transporter_id', '=', 'co2_transporter.id');
+        $query->join('co2_company','co2_company.id','=','co2_transporter.company_id');
+        if ($company_division_id != 0)
+        {
+            $query->where('co2_company.company_division_id', '=', $company_division_id );
+        }
+        if ($regist_year_id != 0)
+        {
+            $query->where('co2_transporter_discharge.regist_year_id', '=', $regist_year_id);
+        }
+        $query->orderBy('co2_transporter_discharge.energy_co2', 'DESC');
+        $table_count = $query->count();
+        $table_datasets = $query->paginate(10);
+
+        $pagement_params =  $inputs;
+        unset($pagement_params['_token']);
+
+        return view('compare.factory_by_company_division', compact('company_division', 'regist_year_id','table_count', 'table_datasets', 'pagement_params'));
+    }
+
+    /**
+     * 
+     */
+    public function factory_by_transporter_division(Request $request)
+    {
+        // 引数処理
+        $inputs = $request->all();
+        $company_division_id = isset($inputs['company_division_id']) ? $inputs['company_division_id'] : 0; // 設定されてないときは農業
+        $transporter_division_id = isset($inputs['transporter_division_id']) ? $inputs['transporter_division_id'] : 0; // 設定されてないときは農業  
+        $regist_year_id = isset($inputs['year']) ? $inputs['year'] : 0;
+
+        // $company_division_id が設定されてない場合アボート
+        if ($company_division_id == 0) {
+            abort('404');
+        }
+        $company_division = CompanyDivision::find($company_division_id);
+        if ($company_division == null) {
+            abort('404');
+        }
+
+        // transporter_division_id が設定されてない場合アボート
+        if ($transporter_division_id == 0) {
+            abort('404');
+        }
+        $transporter_division = TransporterDivision::find($transporter_division_id);
+        if ($transporter_division == null) {
+            abort('404');
+        }
+
+        // $regist_year_id が設定されてない場合アボート
+        if ($regist_year_id == 0) {
+            abort('404');
+        }
+        $regist_year = RegistYear::find($regist_year_id);
+        if ($regist_year == null) {
+            abort('404');
+        }
+
+        // 問い合わせSQLを構築
+        $query = Transporter::query();
+        $query->select('*', 'co2_transporter_discharge.regist_year_id AS t_d_regist_year_id');
+        $query->join('co2_transporter_discharge', 'co2_transporter_discharge.transporter_id', '=', 'co2_transporter.id');
+//        $query->join('co2_company','co2_company.id','=','co2_transporter.company_id');
+        if ($transporter_division_id != 0)
+        {
+            $query->where('co2_transporter.transporter_division_id', '=', $transporter_division_id );
+        }
+        if ($regist_year_id != 0)
+        {
+            $query->where('co2_transporter_discharge.regist_year_id', '=', $regist_year_id);
+        }
+        $query->orderBy('co2_transporter_discharge.energy_co2', 'DESC');
+        $table_count = $query->count();
+        $table_datasets = $query->paginate(10);
+
+//        dd($table_datasets);
+        $pagement_params =  $inputs;
+        unset($pagement_params['_token']);
+
+        return view('compare.factory_by_transporter_division', compact('company_division', 'transporter_division','regist_year_id','table_count', 'table_datasets', 'pagement_params'));
     }
 }

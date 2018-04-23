@@ -328,4 +328,154 @@ class GasCompareController extends Controller
 
         return view('compare.gas', compact('regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
     }
+
+/*
+    public function executeFactoryByGass(sfWebRequest $request)
+    {
+      $year =$request->getParameter('year');
+      $gass =$request->getParameter('gass');
+      $page =$request->getParameter('page',1);
+  
+      $crit = new Criteria();
+  
+      if ($year!==NULL) {
+        $crit->add(FactoryDischargePeer::REGIST_YEAR_ID,$year,Criteria::EQUAL);
+      }
+  
+      switch($gass) {
+          case 'energy_co2':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::ENERGY_CO2);
+            break;
+  
+          case 'noenergey_co2':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::NOENERGY_CO2);
+            break;
+  
+          case 'noenergy_dis_co2':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::NOENERGY_DIS_CO2);
+            break;
+  
+          case 'ch4':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::CH4);
+            break;
+  
+          case 'n2o':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::N2O);
+            break;
+  
+          case 'hfc':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::HFC);
+            break;
+  
+          case 'pfc':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::PFC);
+            break;
+  
+          case 'sf6':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::SF6);
+            break;
+  
+          case 'power_plant_energy_co2':
+            $crit->addDescendingOrderByColumn(FactoryDischargePeer::POWER_PLANT_ENERGY_CO2);
+            break;
+  
+          default:
+            break;
+        }
+  
+      $pager = new sfPropelPager('FactoryDischarge', sfConfig::get('app_pager_max'));
+      $pager->setPage($page);
+      $pager->setCriteria($crit);
+      $pager->init();
+  
+      $this->pager= $pager;
+      $this->gass = $gass;
+      $this->year = $year;
+  
+          // タイトル設定
+      $this->getResponse()->setTitle("T-Watch::メニュー::温室効果ガスデータ");
+  
+      return sfView::SUCCESS;
+    }
+*/  
+
+    /**
+     * 温室効果ガス別比較
+     */
+    public function factory_by_gas(Request $request)
+    {
+        // 引数の処理
+        $inputs = $request->all();
+        $gas = isset($inputs['gas']) ? $inputs['gas'] : 'all'; 
+        $regist_year_id = isset($inputs['year']) ? $inputs['year'] : 0;
+
+        // $regist_year_id が設定されてない場合アボート
+        if ($regist_year_id == 0) {
+            abort('404');
+        }
+        $regist_year = RegistYear::find($regist_year_id);
+        if ($regist_year == null) {
+            abort('404');
+        }
+
+        // $gas が設定されてない場合アボート
+        if ($gas == 'all') {
+            abort('404');
+        }
+
+        // 問い合わせSQLを構築
+        $query = FactoryDischarge::query();
+        if ($regist_year_id != 0)
+        {
+            $query->where('regist_year_id', '=', $regist_year_id);
+        }
+        switch($gas) {
+            case 'energy_co2':
+                $query->orderBy('co2_factory_discharge.energy_co2', 'DESC');
+                break;
+    
+            case 'noenergey_co2':
+                $query->orderBy('co2_factory_discharge.noenergey_co2', 'DESC');
+                break;
+    
+            case 'noenergy_dis_co2':
+                $query->orderBy('co2_factory_discharge.noenergey_dis_co2', 'DESC');
+                break;
+
+            case 'ch4':
+                $query->orderBy('co2_factory_discharge.ch4', 'DESC');
+                break;
+
+            case 'n2o':
+                $query->orderBy('co2_factory_discharge.n2o', 'DESC');
+                break;
+
+            case 'hfc':
+                $query->orderBy('co2_factory_discharge.hfc', 'DESC');
+                break;
+    
+            case 'pfc':
+                $query->orderBy('co2_factory_discharge.pfc', 'DESC');
+                break;
+    
+            case 'sf6':
+                $query->orderBy('co2_factory_discharge.sf6', 'DESC');
+                break;
+    
+            case 'power_plant_energy_co2':
+                $query->orderBy('co2_factory_discharge.power_plant_energy_co2', 'DESC');
+                break;
+   
+            default:
+                break;
+        }
+        $table_count = $query->count();
+        $table_datasets = $query->paginate(10);
+
+        $pagement_params =  $inputs;
+        unset($pagement_params['_token']);
+
+        return view('compare.factory_by_gas', compact('gas', 'regist_year_id', 'table_count', 'table_datasets', 'pagement_params'));
+    }
+
 }

@@ -238,4 +238,110 @@ class PrefCompareController extends Controller
         // ビューへの渡し
         return view('compare.pref', compact('prefs', 'regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
     }
+/*
+    public function executeFactoryByPref(sfWebRequest $request)
+    {
+      $this->forward404Unless(
+                $pref =  PrefPeer::retrieveByPK($request->getParameter('id')),
+                sprintf('Object Pref does not exist (%s).', $request->getParameter('id'))
+              );
+      $this->forward404Unless(
+                $year = RegistYearPeer::retrieveByPK($request->getParameter('year')),
+                sprintf('Object Regist Year does not exist (%s).', $request->getParameter('year'))
+              );
+  
+      $this->pager = FactoryDischargePeer::getPagerByPref(
+                              $request->getParameter('id'),
+                              $request->getParameter('year'),
+                              $request->getParameter('page',1)
+                         );
+      $this->pref = $pref;
+      $this->year = $year;
+  
+      // タイトル設定
+      $this->getResponse()->setTitle("T-Watch::メニュー::都道府県別温室効果ガス集計::都道府県別事業所リスト");
+  
+      return sfView::SUCCESS;
+    }
+
+
+  static function getPagerByPref($id, $year, $page=1, $max=0)
+  {
+    $crit = new Criteria();
+
+    // ジョイン
+    $crit->addJoin(self::FACTORY_ID, FactoryPeer::ID, Criteria::INNER_JOIN);
+
+    $crit->add(FactoryPeer::PREF_ID,$id,Criteria::EQUAL);
+    $crit->add(self::REGIST_YEAR_ID,$year,Criteria::EQUAL);
+
+    $crit->addDescendingOrderByColumn(self::SUM_OF_EXHARST);
+
+    if ($max==0) {
+      $max = sfConfig::get('app_pager_max');
+    }
+    $pager = new sfPropelPager('FactoryDischarge', $max);
+    $pager->setPage($page);
+    $pager->setCriteria($crit);
+    $pager->init();
+
+    return $pager;
+  }
+
+*/  
+
+
+    /**
+     * 都道府県比較
+     */
+    public function factory_by_pref(Request $request)
+    {
+        // 引数の処理
+        $inputs = $request->all();
+        $pref_id = isset($inputs['pref_id']) ? $inputs['pref_id'] : 0; 
+        $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
+
+        // $pref_id が設定されてない場合アボート
+        if ($pref_id == 0) {
+            abort('404');
+        }
+        $pref = Pref::find($pref_id);
+        if ($pref == null) {
+            abort('404');
+        }
+
+        // $regist_year_id が設定されてない場合アボート
+        if ($regist_year_id == 0) {
+            abort('404');
+        }
+        $regist_year = RegistYear::find($regist_year_id);
+        if ($regist_year == null) {
+            abort('404');
+        }
+
+
+        // 問い合わせSQLを構築
+        $query = FactoryDischarge::query();
+        $query->select('*', 'co2_factory_discharge.regist_year_id AS f_d_regist_year_id');
+        $query->join('co2_factory', 'co2_factory_discharge.factory_id', '=', 'co2_factory.id');
+        if ($pref_id != 0)
+        {
+            $query->where('co2_factory.pref_id', '=', $pref_id);
+        }
+        if ($regist_year_id != 0)
+        {
+            $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
+        }
+        $query->orderBy('co2_factory_discharge.sum_of_exharst', 'DESC');
+        $table_count = $query->count();
+        $table_datasets = $query->paginate(10);
+
+//        dd($table_datasets);
+        $pagement_params =  $inputs;
+        unset($pagement_params['_token']);
+
+        // ビューへの渡し
+        return view('compare.factory_by_pref', compact('pref','regist_year_id','table_count', 'table_datasets', 'pagement_params'));
+    }
+
 }

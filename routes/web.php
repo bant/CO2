@@ -44,11 +44,16 @@ Route::get('compare/CompanyDivision', 'DivisionCompareController@company_divisio
 Route::post('compare/CompanyDivision', 'DivisionCompareController@company_division');
 Route::get('compare/TransporterDivision', 'DivisionCompareController@transporter_division');
 Route::post('compare/TransporterDivision', 'DivisionCompareController@transporter_division');
+Route::get('compare/FactoryByCompanyDivision', 'DivisionCompareController@factory_by_company_division');
+Route::get('compare/FactoryByTransporterDivision', 'DivisionCompareController@factory_by_transporter_division');
+
 
 // 都道府県別比較
 Route::get('compare/Pref', 'PrefCompareController@pref');
 Route::post('compare/Pref', 'PrefCompareController@pref');
+Route::get('compare/FactoryByPref', 'PrefCompareController@factory_by_pref');
 
 //
 Route::get('compare/Gas', 'GasCompareController@gas');
 Route::post('compare/Gas', 'GasCompareController@gas');
+Route::get('compare/FactoryByGas', 'GasCompareController@factory_by_gas');

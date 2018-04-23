@@ -78,7 +78,7 @@
               @foreach ($table_datasets as $table_dataset)
                 <tr>
                   <td>
-                  <a href="/compare/FactoryByPref?id={{$table_dataset['PREF_ID']}}&regist_year_id={{$table_dataset['YEAR_ID']}}" title="{{$table_dataset['PREF_NAME']}}の事業所へ">{{$table_dataset['PREF_NAME']}}</a>
+                  <a href="/compare/FactoryByPref?pref_id={{$table_dataset['PREF_ID']}}&regist_year_id={{$table_dataset['YEAR_ID']}}" title="{{$table_dataset['PREF_NAME']}}の事業所へ">{{$table_dataset['PREF_NAME']}}</a>
                   </td>
                   <td>{{$table_dataset['YEAR_ID']}}年</td>
                   <td>{{$table_dataset['SUM_ENERGY_CO2']}}</td>
