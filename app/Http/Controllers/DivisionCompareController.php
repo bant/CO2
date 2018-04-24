@@ -332,11 +332,9 @@ class DivisionCompareController extends Controller
 
         $transporter_divisions = TransporterDivision::all()->pluck('name','id');; 
         $transporter_divisions->prepend('未選択', 0);    // 最初に追加
-//        unset($company_divisions[5]);
 
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加
-
 
         // $company_division_id が設定されてない場合アボート
         if ($company_division_id == 0) {
@@ -522,7 +520,6 @@ class DivisionCompareController extends Controller
         $table_count = $query->count();
         $table_datasets = $query->paginate(10);
 
-//        dd($table_datasets);
         $pagement_params =  $inputs;
         unset($pagement_params['_token']);
 
