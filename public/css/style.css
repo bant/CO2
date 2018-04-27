@@ -335,9 +335,9 @@ ul.pagination{
 }
 
 /* テーブルソート */
-.tablesorter-green th {
-	color: #000000;
-}
+/* .tablesorter-green th {
+	background: -webkit-linear-gradient(top, #DDDDDD 0%, #C4C4C4 50%, #DDDDDD 100%);  
+} */
 .tablesorter-header-inner {
 	color: #006600;
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\RegistYear;
+use App\Factory;
 use App\FactoryDischarge;
 use App\MajorBusinessType;
 use App\MiddleBusinessType;
@@ -57,7 +58,7 @@ class BusinessTypeCompareController extends Controller
             ->when($regist_year_id!=0, function ($query) use ($regist_year_id) {
                 return $query->where('co2_factory_discharge.regist_year_id', '=', $regist_year_id);
             })  
-            ->groupBy('co2_factory_discharge.regist_year_id' , 'co2_factory.major_business_type_id')
+            ->groupBy('co2_factory.major_business_type_id' ,'co2_factory_discharge.regist_year_id')
             ->get();
 
         $temp_data = array();
@@ -119,6 +120,51 @@ class BusinessTypeCompareController extends Controller
         return $discharges;
     }
 
+
+    private static $limit_major_business_type = 6;
+    /**
+     * 
+     */
+    private function getFactoryDischargeByMajorBusinessType($years, $major_business_type_id)
+    {
+        $result = array();
+        $year_id  = 0;
+        foreach($years as $year)
+        {
+            $year_id = $year->id;
+            $tmp_datas = Factory::select(DB::raw(
+                "co2_factory.major_business_type_id AS major_business_type_id,
+                co2_major_business_type.name AS major_business_name,
+                co2_factory_discharge.regist_year_id AS year_id,
+                SUM(co2_factory_discharge.sum_of_exharst) AS sum_of_exharst"
+                ))
+                ->join('co2_factory_discharge','co2_factory.id','=','co2_factory_discharge.factory_id')
+                ->join('co2_major_business_type','co2_factory.major_business_type_id','=','co2_major_business_type.id')
+                ->when($year_id != 0, function ($query) use ($year_id) {
+                    return $query->where('co2_factory_discharge.regist_year_id', '=', $year_id);
+                })
+                ->when($major_business_type_id != 0, function ($query) use ($major_business_type_id) {
+                    return $query->where('co2_factory.major_business_type_id', '=', $major_business_type_id);
+                })
+                ->groupBy('co2_factory_discharge.regist_year_id', 'co2_factory.major_business_type_id', 'co2_major_business_type.name')
+                ->get();
+            
+            foreach($tmp_datas as $tmp_data)
+            {
+                $result[$tmp_data->major_business_type_id - 1]['ID'] = $tmp_data->major_business_type_id;
+                $result[$tmp_data->major_business_type_id - 1]['NAME'] = $tmp_data->major_business_name;
+                $result[$tmp_data->major_business_type_id - 1]['DATA'][$year->id] = $tmp_data->sum_of_exharst;
+            }
+        }
+        foreach ($result as $key => $row) 
+        {
+            $sort_key[$key] = $row['DATA'][$year_id];
+        }
+        array_multisort($sort_key, SORT_DESC, $result);
+      
+        return $result;
+    }
+
     /**
      * グラフデータ作成
      */
@@ -129,27 +175,42 @@ class BusinessTypeCompareController extends Controller
         $tmp_graph_datas = array();
 
         $years = RegistYear::select()->orderBy('id', 'asc')->get();
-        $major_business_type = MajorBusinessType::find($major_business_type_id);
 
-        $graph_dataset['NAME'] = $major_business_type->name;
-        $tmp_graph_datas =  FactoryDischarge::select(DB::raw("SUM(sum_of_exharst) AS sum_of_exharst"))
-                ->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id') 
-                ->where('co2_factory.major_business_type_id', '=', $major_business_type_id)
-                ->groupBy('co2_factory_discharge.regist_year_id')
-                ->get();
-
-        foreach($tmp_graph_datas as $tmp_graph_data)
-        {
-            $graph_dataset['DATA'][] = $tmp_graph_data->sum_of_exharst;
-        }
-        
+        $major_business_type_rank = self::getFactoryDischargeByMajorBusinessType($years, $major_business_type_id);
 
         foreach ($years as $year)
         {
             $graph_labels[] = $year->name;
+
+            $tmp_sum = 0;
+            for ($i = 0; $i < count($major_business_type_rank); $i++)
+            {
+                if ($i < self::$limit_major_business_type)
+                {
+                    $graph_datasets[$i]['POS'] = $i;                    
+                    $graph_datasets[$i]['ID'] = $major_business_type_rank[$i]['ID'];
+                    $graph_datasets[$i]['NAME'] = $major_business_type_rank[$i]['NAME'];
+                    $graph_datasets[$i]['DATA'][$year->id] = $major_business_type_rank[$i]['DATA'][$year->id];
+                }
+                else
+                {
+                    $tmp_sum += $major_business_type_rank[$i]['DATA'][$year->id];
+                }
+            }
+            $graph_datasets[self::$limit_major_business_type]['POS'] = self::$limit_major_business_type;       
+            $graph_datasets[self::$limit_major_business_type]['ID'] = 0;
+            $graph_datasets[self::$limit_major_business_type]['NAME'] = "その他";
+            $graph_datasets[self::$limit_major_business_type]['DATA'][$year->id] = $tmp_sum;
         }
 
-        return array($graph_labels, $graph_dataset);
+        // その他も含まれているので削除
+        if ($major_business_type_id != 0)
+        {
+            unset($graph_datasets[self::$limit_major_business_type]);
+        }
+
+//        dd($graph_datasets);
+        return array($graph_labels, $graph_datasets);
     }
 
     /**
@@ -164,16 +225,18 @@ class BusinessTypeCompareController extends Controller
 
         // 選択データの作成
         $major_business_types = MajorBusinessType::all()->pluck('name','id');
+        $major_business_types->prepend('未選択', 0);    // 最初に追加
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加
 
         // テーブルデータの作成
         $discharges = self::makeMajorBusinessTypeTableData($major_business_type_id, $regist_year_id);
         // グラフデータの作成
-        list($graph_labels, $graph_dataset) = self::makeMajorBusinessTypeGraphData($major_business_type_id, $regist_year_id);
+        list($graph_labels, $graph_datasets) = self::makeMajorBusinessTypeGraphData($major_business_type_id, $regist_year_id);
 
+//        dd( $graph_datasets);
         // ToDO
-        return view('compare.major_business_type' ,compact('major_business_types', 'regist_years', 'graph_labels', 'graph_dataset', 'discharges'));
+        return view('compare.major_business_type' ,compact('major_business_types', 'regist_years', 'graph_labels', 'graph_datasets', 'discharges'));
     }
 
     /**
