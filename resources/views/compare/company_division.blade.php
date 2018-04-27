@@ -21,7 +21,7 @@
                 <tbody>
                   <tr>
                     <th>{!! Form::label('company_division', '指定区分') !!}</th>
-                    <td>{!! Form::select('company_division_id', $company_divisions, 1, ['class' => 'form', 'id' => 'company_division_id']) !!}</td>
+                    <td>{!! Form::select('company_division_id', $company_divisions, 0, ['class' => 'form', 'id' => 'company_division_id']) !!}</td>
                   </tr>
                   <tr>
                     <th>{!! Form::label('regist_year', '年度') !!}</th>

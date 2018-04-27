@@ -161,8 +161,6 @@ class CompanySearchController extends Controller
                 $graph_datasets[$graph_item_pos[$transporter->id]]['DATA'][] = $transporter->getEnergyCO2($year->id);
             }
         }
-//        dd($graph_labels);
-//        dd($graph_datasets);
 
         // ここから検索結果用データの作成
         // 工場を持っている会社のみ
@@ -206,8 +204,6 @@ class CompanySearchController extends Controller
                 }
             }
         }
-
-
 
         return view('company.info', compact('company', 'histories', 'graph_labels', 'graph_datasets','discharges'));
     }
