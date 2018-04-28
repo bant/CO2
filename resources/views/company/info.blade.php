@@ -38,7 +38,7 @@
                 <th>PRTR届出</th>
                 <td>
                 @if($company->getPrtrCo2()!=0)
-                  <a href="http://prtr.toxwatch.net/company/info?id={{$company->getPrtrCo2()}}" target=”_blank”title="{{$company->name}}のPRTR情報はこちら">{{$company->name}}のPRTR情報はこちら</a>
+                  <a href="https://prtr.toxwatch.net/company/info?id={{$company->getPrtrCo2()}}" target=”_blank”title="{{$company->name}}のPRTR情報はこちら">{{$company->name}}のPRTR情報はこちら</a>
                 @else 
                   なし
                 @endif                  
