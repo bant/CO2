@@ -55,8 +55,8 @@
                 <tr>
                   <th>事業者名
                     <br>事業所名
-                    <br>[業種]
                   </th>
+                  <th>業種</th>
                   <th>年度</th>
                   <th>住所</th>
                   <th>従業員数</th>
@@ -68,15 +68,15 @@
               <tbody>
               @foreach ($factories as $factory)
                 <tr>
-                  <td>{{$factory->company->name}}
+                  <td align="left">{{$factory->company->name}}
                     <br>
                     <a href="/factory/info?id={{$factory->id}}" title="{{$factory->name}}の詳細へ">{{$factory->name}}</a>
-                    <br>[{{$factory->major_business_type->name}}]
                   </td>
-                  <td>{{$factory->regist_year->name}}</td>
-                  <td>{{$factory->address}}</td>
-                  <td>{{$factory->employee}}人</td>
-                  <td>{{$factory->getSumOfExharst($factory->regist_year->id)}}
+                  <td align="left">{{$factory->major_business_type->name}}</td>
+                  <td align="center">{{$factory->regist_year->name}}年</td>
+                  <td align="left">{{$factory->address}}</td>
+                  <td align="right">{{$factory->employee}}人</td>
+                  <td align="right">{{$factory->getSumOfExharst($factory->regist_year->id)}}
                     <br>
                     @if ($factory->getPrePercent($factory->regist_year->id) == -99999999)
                       -

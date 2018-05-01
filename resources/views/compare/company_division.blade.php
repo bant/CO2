@@ -79,7 +79,7 @@
                       @endif
                     )
                   </td>
-                  <td>{{$table_dataset['YEAR_ID']}}</td>
+                  <td>{{$table_dataset['YEAR_ID']}}年</td>
                   <td>{{$table_dataset['SUM_ENERGY_CO2']}}</td>
                   <td>{{$table_dataset['PERCENT']}}%</td>
                   <td>

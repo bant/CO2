@@ -79,7 +79,7 @@
                 <td>
                   <a href="/compare/FactoryByTransporterDivision?company_division_id={{$table_dataset['COMPANY_DIVISION_ID']}}&transporter_division_id={{$table_dataset['TRANSPORTER_DIVISION_ID']}}&year={{$table_dataset['YEAR_ID']}}" title="{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}の事業者一覧へ">{{$table_dataset['TRANSPORTER_DIVISION_NAME']}}</a>
                 </td>
-                <td>{{$table_dataset['YEAR_ID']}}</td>
+                <td>{{$table_dataset['YEAR_ID']}}年</td>
                 <td>{{$table_dataset['SUM_ENERGY_CO2']}}</td>
                 <td>{{$table_dataset['PERCENT']}}</td>
                 <td>

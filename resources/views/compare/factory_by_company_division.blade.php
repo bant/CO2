@@ -24,7 +24,7 @@
                 <td>{{$company_division->name}}</td>
                 </tr>
                 <th>年度</th>
-                <td>{{$regist_year_id}}</td>
+                <td>{{$regist_year_id}}年</td>
                 </tr>
               </tbody>
             </table>
@@ -50,7 +50,7 @@
                 <td>
                   <a href="/company/info?id={{$table_dataset->company->id}}" title="{{$table_dataset->company->name}}の詳細へ">{{$table_dataset->company->name}}</a>
                 </td>
-                <td>{{$table_dataset->t_d_regist_year_id}}</td>
+                <td>{{$table_dataset->t_d_regist_year_id}}年</td>
                 <td>{{$table_dataset->energy_co2}}</td>
                 <td> 
                     @if ($table_dataset->pre_percent == -99999999)

@@ -65,7 +65,7 @@
                     <a href="/factory/info?id={{$table_dataset->factory->id}}" title="{{$table_dataset->factory->name}}の詳細へ">{{$table_dataset->factory->name}}</a>
                     <br>[{{$table_dataset->factory->business_type->name}}]
                   </td>
-                  <td>{{$table_dataset->discharge_regist_year_id}}</td>
+                  <td>{{$table_dataset->discharge_regist_year_id}}年</td>
                   <td>{{$table_dataset->energy_co2}}</td>
                   <td>{{$table_dataset->noenergy_co2}}</td>
                   <td>{{$table_dataset->noenergy_dis_co2}}</td>

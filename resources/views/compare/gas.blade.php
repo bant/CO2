@@ -82,7 +82,7 @@
             @if (isset($table_dataset['SUM_OF_ENERGY_CO2']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=energy_co2&year={{$table_dataset['REGIST_YEAR_ID']}}" title="エネルギー起源CO2の事業者一覧へ">エネルギー起源CO<sub>2</sub></a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_ENERGY_CO2']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_ENERGY_CO2']}}%</td>
               <td>
@@ -103,7 +103,7 @@
             @if (isset($table_dataset['SUM_OF_NOENERGY_CO2']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=noenergy_co2&year={{$table_dataset['REGIST_YEAR_ID']}}" title="非エネルギー起源CO2の事業者一覧へ">非エネルギー起源CO<sub>2</sub></a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_NOENERGY_CO2']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_NOENERGY_CO2']}}%</td>
               <td>
@@ -124,7 +124,7 @@
             @if (isset($table_dataset['SUM_OF_NOENERGY_DIS_CO2']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=noenergy_dis_co2&year={{$table_dataset['REGIST_YEAR_ID']}}" title="非エネルギー起源CO2(廃棄物の原燃料使用)の事業者一覧へ">非エネルギー起源CO<sub>2</sub>(廃棄物の原燃料使用)</a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_NOENERGY_DIS_CO2']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_NOENERGY_DIS_CO2']}}%</td>
               <td>
@@ -145,7 +145,7 @@
             @if (isset($table_dataset['SUM_OF_CH4']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=ch4&year={{$table_dataset['REGIST_YEAR_ID']}}" title="CH4の事業者一覧へ">CH<sub>4</sub></a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_CH4']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_CH4']}}%</td>
               <td>
@@ -166,7 +166,7 @@
             @if (isset($table_dataset['SUM_OF_N2O']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=n20&year={{$table_dataset['REGIST_YEAR_ID']}}" title="N2Oの事業者一覧へ">N<sub>2</sub>O</a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_N2O']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_N2O']}}%</td>
               <td>
@@ -187,7 +187,7 @@
             @if (isset($table_dataset['SUM_OF_HFC']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=hfc&year={{$table_dataset['REGIST_YEAR_ID']}}" title="HFCの事業者一覧へ">HFC</a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_HFC']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_HFC']}}%</td>
               <td>
@@ -208,7 +208,7 @@
             @if (isset($table_dataset['SUM_OF_PFC']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=pfc&year={{$table_dataset['REGIST_YEAR_ID']}}" title="PFCの事業者一覧へ">PFC</a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_PFC']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_PFC']}}%</td>
               <td>
@@ -229,7 +229,7 @@
             @if (isset($table_dataset['SUM_OF_SF6']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=sf62&year={{$table_dataset['REGIST_YEAR_ID']}}" title="SF<sub>6</sub>の事業者一覧へ">SF<sub>6</sub></a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_SF6']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_SF6']}}%</td>
               <td>
@@ -250,7 +250,7 @@
             @if (isset($table_dataset['SUM_OF_POWER_PLANT_ENERGY_CO2']))
             <tr>
               <td><a href="/compare/FactoryByGas?gas=power_plant_energy_co2&year={{$table_dataset['REGIST_YEAR_ID']}}" title="エネルギー起源CO2(発電所等配分前)の事業者一覧へ">エネルギー起源CO2(発電所等配分前)</a></td>
-              <td>{{$table_dataset['REGIST_YEAR_ID']}}</td>
+              <td>{{$table_dataset['REGIST_YEAR_ID']}}年</td>
               <td>{{$table_dataset['SUM_OF_POWER_PLANT_ENERGY_CO2']}}</td>
               <td>{{$table_dataset['PERCENT_SUM_OF_POWER_PLANT_ENERGY_CO2']}}%</td>
               <td>

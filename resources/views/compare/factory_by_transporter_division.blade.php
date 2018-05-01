@@ -53,7 +53,7 @@
               @foreach ($table_datasets as $table_dataset)
                 <tr>
                   <td><a href="" title="{{$table_dataset->company->name}}の詳細へ">{{$table_dataset->company->name}}</a></td>
-                  <td>{{$table_dataset->t_d_regist_year_id}}</td>
+                  <td>{{$table_dataset->t_d_regist_year_id}}年</td>
                   <td>{{$table_dataset->energy_co2}}</td>
                   <td> 
                     @if ($table_dataset->pre_percent == -99999999)

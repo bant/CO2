@@ -70,7 +70,7 @@
               <tbody>
               @foreach ($histories as $history)
                 <tr>
-                <td>{{$history['YEAR_NAME']}}</td>
+                <td>{{$history['YEAR_NAME']}}年</td>
                 <td>{{$history['TOTAL_SUM_OF_EXHARST']}}</td>
                 <td>{{$history['TOTAL_SUM_OF_ENERGY_CO2']}}</td>
                 <td>{{$history['TOTAL_SUM']}}</td>
@@ -104,7 +104,7 @@
       <section>
         <hr class="split">
         <h3 class="result">事業者排出量内訳(単位:tCO<sub>2</sub>)</h3>
-        <table id="resultTable" class="table table-bordered table-striped resultTable">
+        <table id="resultTable" class="table table-bordered table-striped resultTable tablesorter-green">
           <thead>
             <tr>
               <th>事業所名/業種</th>

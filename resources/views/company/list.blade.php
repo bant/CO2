@@ -62,9 +62,9 @@
                   <td>
                     <a href="/company/info?id={{$company->id}}" title="{{$company->name}}の詳細へ">{{$company->name}}</a>
                   </td>
-                  <td>{{$company->address}}</td>
-                  <td>{{$company->getFactoryCount()}}</td>
-                  <td>{{$company->company_division->name}}</td>
+                  <td align="left">{{$company->address}}</td>
+                  <td align="right">{{$company->getFactoryCount()}}</td>
+                  <td align="center">{{$company->company_division->name}}</td>
                 </tr>
               @endforeach
               </tbody>

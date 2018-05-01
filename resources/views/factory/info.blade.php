@@ -80,7 +80,7 @@
               <tbody>
               @foreach ($histories as $history)
                 <tr>
-                <td>{{$history['YEAR_NAME']}}</td>
+                <td>{{$history['YEAR_NAME']}}年</td>
                 <td>{{$history['SUM_OF_EXHARST']}}</td>
                 <td>
                 @if ($history['PRE_PERCENT'] === -99999999.0)
@@ -139,7 +139,7 @@
               <tbody>
               @foreach ($histories as $history)
                 <tr>
-                <td>{{$history['YEAR_NAME']}}</td>
+                <td>{{$history['YEAR_NAME']}}年</td>
                 <td>{{$history['ENERGY_CO2']}}</td>
                 <td>{{$history['NOENERGY_CO2']}}</td>
                 <td>{{$history['NOENERGY_DIS_CO2']}}</td>

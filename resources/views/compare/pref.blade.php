@@ -41,8 +41,7 @@
           <section>
             <hr class="split">
             <div class="display-switch">
-              <h3 class="result">比較グラフ(単位:tCO
-                <sub>2</sub>)
+              <h3 class="result">比較グラフ(単位:tCO<sub>2</sub>)
               </h3>
               <div class="display">非表示にする</div>
             </div>

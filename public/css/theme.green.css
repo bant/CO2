@@ -37,7 +37,7 @@
 	background-position: 5px center;
 	background-repeat: no-repeat;
 	/* background-image: url(data:image/gif;base64,R0lGODlhEAAQAOYAAA5NDBBYDlWWUzRUM5DVjp7inJ/fnQ1ECiCsGhyYFxqKFRFdDhBXDQxCCiO8HSK2HCCqGh2aGByUFxuPFhqNFhmHFRZ2EhVvERRpEBBVDSS8HiGyHB+mGh6fGRuTFxiAFBd5Eww/Cgs5CRp7Fiu+JRx8GCy/JjHAKyynKCuhJzXCMDbCMDnDMyNuHz3EODy9N0LFPSl7JkvIRjycOFDKS1LKTVPLT1XLUFTCT17OWTBkLmbQYnDTbHXVcXnWdoXago/djGmUZ112XCJEIEdjRf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEUALAAAAAAQABAAAAdlgEWCg4SFhoIvh4cVLECKhCMeJjwFj0UlEwgaMD4Gii0WFAkRHQ47BIY6IQAZDAwBCyAPOJa1toRBGBAwNTY3OT0/AoZCDQoOKi4yNDOKRCIfGycrKZYDBxIkKLZDFxy3RTHgloEAOw==); */
-	background-image: url(images/green-unsorted.gif);
+	background-image: url(/images/green-unsorted.gif);
 	border-collapse: collapse;
 	white-space: normal;
 	cursor: pointer;
@@ -46,13 +46,13 @@
 .tablesorter-green thead .tablesorter-headerSortUp .tablesorter-header-inner,
 .tablesorter-green thead .tablesorter-headerAsc .tablesorter-header-inner {
 	/* background-image: url(data:image/gif;base64,R0lGODlhEAAQANUAAA5NDBBYDpDVjp7inJ/fnSCsGhyYFxFdDhBXDSO8HSK2HB2aGBuPFhqNFhmHFRZ2EhBVDSS8Hh6fGRuTFxd5Eww/Chp7Fhx8GCy/JjnDMyNuHzy9N0LFPVTCTzBkLmbQYnDTbHnWdo/djP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACMALAAAAAAQABAAAAY4wJFwSCwaj8ikcslMbpojR0bEtEwwoIHywihEOCECUvNoGBaSxEdg9FQAEAQicKAoOtC8fs8fBgEAOw==) */
-	background-image: url(images/green-asc.gif);
+	background-image: url(/images/green-asc.gif);
 }
 .tablesorter-green thead .headerSortDown .tablesorter-header-inner,
 .tablesorter-green thead .tablesorter-headerSortDown .tablesorter-header-inner,
 .tablesorter-green thead .tablesorter-headerDesc .tablesorter-header-inner {
 	/* background-image: url(data:image/gif;base64,R0lGODlhEAAQANUAAFWWUzRUMw1EChqKFQxCCiO8HSCqGhyUFxVvERRpECGyHB+mGhiAFAs5CSu+JTHAKyynKCuhJzXCMDbCMD3EOELFPSl7JkvIRjycOFDKS1LKTVPLT1XLUF7OWXXVcYXagmmUZ112XCJEIEdjRf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACQALAAAAAAQABAAAAY4QJJwSCwaj8ikcskkghKGimbD6Xg+AGOIMChIKJcMBjlqMBSPSUQZEBwcEKYIsWiSLPa8fs9HBgEAOw==) */
-	background-image: url(images/green-desc.gif);
+	background-image: url(/images/green-desc.gif);
 }
 .tablesorter-green th.tablesorter-header .tablesorter-header-inner,
 .tablesorter-green td.tablesorter-header .tablesorter-header-inner {
