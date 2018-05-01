@@ -212,14 +212,13 @@ class DivisionCompareController extends Controller
             array_push($table_datasets, $temp_data);
         }
 
-        //  ここからグラフ表示用のデータ
-        //=================================
-
         // グラフデータの作成
         list($graph_labels, $graph_datasets)  = self::makeCompanyDivisionGraphData($company_division_id);
 
+        $graph_title = "特定輸送排出者別 温室効果ガス排出合計"; 
+
         // ToDO
-        return view('compare.company_division' ,compact('company_divisions', 'regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
+        return view('compare.company_division' ,compact('company_divisions', 'regist_years', 'table_datasets', 'graph_title', 'graph_labels', 'graph_datasets'));
     }
 
     //=============================================================================
@@ -411,7 +410,9 @@ class DivisionCompareController extends Controller
         // グラフデータの作成
         list($graph_labels, $graph_datasets)  = self::makeTransporterDivisionGraphData($transporter_division_id);
 
-        return view('compare.transporter_division' ,compact('f_company_division' ,'transporter_divisions', 'regist_years', 'table_datasets',  'graph_labels', 'graph_datasets'));
+        $graph_title = "職業別(中分類) 温室効果ガス排出合計"; 
+
+        return view('compare.transporter_division' ,compact('f_company_division' ,'transporter_divisions', 'regist_years', 'table_datasets', 'graph_title', 'graph_labels', 'graph_datasets'));
     }
 
     /**

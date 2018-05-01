@@ -326,7 +326,9 @@ class GasCompareController extends Controller
         // グラフデータの作成
         list($graph_labels, $graph_datasets) = self::makeGasGraphData($gas_id, $regist_year_id);
 
-        return view('compare.gas', compact('regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
+        $graph_title = "温室効果ガス別排出量合計";
+
+        return view('compare.gas', compact('regist_years', 'table_datasets', 'graph_title', 'graph_labels', 'graph_datasets'));
     }
 
     /**

@@ -54,5 +54,5 @@
           }
        }
     });
-    </script>
-    @endif
+  </script>
+@endif

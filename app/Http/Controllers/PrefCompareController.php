@@ -235,61 +235,11 @@ class PrefCompareController extends Controller
         // グラフデータの作成
         list($graph_labels, $graph_datasets) = self::makePrefGraphData($pref_id);
 
+        $graph_title = "都道府県別 温室効果ガス排出合計";
+
         // ビューへの渡し
-        return view('compare.pref', compact('prefs', 'regist_years', 'table_datasets', 'graph_labels', 'graph_datasets'));
+        return view('compare.pref', compact('prefs', 'regist_years', 'table_datasets', 'graph_title', 'graph_labels', 'graph_datasets'));
     }
-/*
-    public function executeFactoryByPref(sfWebRequest $request)
-    {
-      $this->forward404Unless(
-                $pref =  PrefPeer::retrieveByPK($request->getParameter('id')),
-                sprintf('Object Pref does not exist (%s).', $request->getParameter('id'))
-              );
-      $this->forward404Unless(
-                $year = RegistYearPeer::retrieveByPK($request->getParameter('year')),
-                sprintf('Object Regist Year does not exist (%s).', $request->getParameter('year'))
-              );
-  
-      $this->pager = FactoryDischargePeer::getPagerByPref(
-                              $request->getParameter('id'),
-                              $request->getParameter('year'),
-                              $request->getParameter('page',1)
-                         );
-      $this->pref = $pref;
-      $this->year = $year;
-  
-      // タイトル設定
-      $this->getResponse()->setTitle("T-Watch::メニュー::都道府県別温室効果ガス集計::都道府県別事業所リスト");
-  
-      return sfView::SUCCESS;
-    }
-
-
-  static function getPagerByPref($id, $year, $page=1, $max=0)
-  {
-    $crit = new Criteria();
-
-    // ジョイン
-    $crit->addJoin(self::FACTORY_ID, FactoryPeer::ID, Criteria::INNER_JOIN);
-
-    $crit->add(FactoryPeer::PREF_ID,$id,Criteria::EQUAL);
-    $crit->add(self::REGIST_YEAR_ID,$year,Criteria::EQUAL);
-
-    $crit->addDescendingOrderByColumn(self::SUM_OF_EXHARST);
-
-    if ($max==0) {
-      $max = sfConfig::get('app_pager_max');
-    }
-    $pager = new sfPropelPager('FactoryDischarge', $max);
-    $pager->setPage($page);
-    $pager->setCriteria($crit);
-    $pager->init();
-
-    return $pager;
-  }
-
-*/  
-
 
     /**
      * 都道府県比較
@@ -319,7 +269,6 @@ class PrefCompareController extends Controller
             abort('404');
         }
 
-
         // 問い合わせSQLを構築
         $query = FactoryDischarge::query();
         $query->select('*', 'co2_factory_discharge.regist_year_id AS f_d_regist_year_id');
@@ -336,7 +285,6 @@ class PrefCompareController extends Controller
         $table_count = $query->count();
         $table_datasets = $query->paginate(10);
 
-//        dd($table_datasets);
         $pagement_params =  $inputs;
         unset($pagement_params['_token']);
 

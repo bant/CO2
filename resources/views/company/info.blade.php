@@ -153,5 +153,5 @@
 @endsection
 
 @section('add_javascript')
-  @include('commons.graph_javascript', ['graph_title' => '温室効果ガス別排出量合計']);
+  @include('commons.stacked_graph_javascript')
 @endsection

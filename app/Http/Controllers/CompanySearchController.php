@@ -205,7 +205,9 @@ class CompanySearchController extends Controller
             }
         }
 
-        return view('company.info', compact('company', 'histories', 'graph_labels', 'graph_datasets','discharges'));
+        $graph_title = "温室効果ガス別排出量合計";
+
+        return view('company.info', compact('company', 'histories', 'graph_title', 'graph_labels', 'graph_datasets','discharges'));
     }
 }
 

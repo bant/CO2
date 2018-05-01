@@ -220,7 +220,7 @@ class BusinessTypeCompareController extends Controller
     {
         // 引数の処理
         $inputs = $request->all();
-        $major_business_type_id = isset($inputs['major_business_type_id']) ? $inputs['major_business_type_id'] : 1;
+        $major_business_type_id = isset($inputs['major_business_type_id']) ? $inputs['major_business_type_id'] : 0;
         $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
 
         // 選択データの作成
@@ -234,9 +234,9 @@ class BusinessTypeCompareController extends Controller
         // グラフデータの作成
         list($graph_labels, $graph_datasets) = self::makeMajorBusinessTypeGraphData($major_business_type_id, $regist_year_id);
 
-//        dd( $graph_datasets);
-        // ToDO
-        return view('compare.major_business_type' ,compact('major_business_types', 'regist_years', 'graph_labels', 'graph_datasets', 'discharges'));
+        $graph_title = "職業別(大分類) 温室効果ガス排出合計"; 
+
+        return view('compare.major_business_type' ,compact('major_business_types', 'regist_years', 'graph_title','graph_labels', 'graph_datasets', 'discharges'));
     }
 
     /**
@@ -377,6 +377,10 @@ class BusinessTypeCompareController extends Controller
             $tmp_graph_datas = FactoryDischarge::select(DB::raw("co2_factory_discharge.regist_year_id AS regist_year_id, co2_factory.middle_business_type_id AS middle_business_type_id,SUM(co2_factory_discharge.sum_of_exharst) AS total_sum_of_exharst"))
                 ->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id')
                 ->where('co2_factory.major_business_type_id', '=', $major_business_type_id)
+                ->when($middle_business_type_id != 0, function ($query) use ($middle_business_type_id) {
+                    return $query->where('co2_factory.middle_business_type_id', '=', $middle_business_type_id);
+                    
+                }) 
                 ->where('co2_factory_discharge.regist_year_id', '=', $year->id)
                 ->groupBy('co2_factory.middle_business_type_id', 'co2_factory_discharge.regist_year_id' ,'co2_factory_discharge.factory_id')
                 ->get();
@@ -409,8 +413,9 @@ class BusinessTypeCompareController extends Controller
             }
         }
 
-        // ToDO
-        return view('compare.middle_business_type' ,compact('major_business_type', 'middle_business_types', 'regist_years', 'regist_year_id', 'discharges', 'graph_labels', 'graph_datasets'));
+        $graph_title = "職業別(中分類) 温室効果ガス排出合計"; 
+
+        return view('compare.middle_business_type' ,compact('major_business_type', 'middle_business_types', 'regist_years', 'regist_year_id', 'discharges', 'graph_title' ,'graph_labels', 'graph_datasets'));
     }
 
     //========================================================
