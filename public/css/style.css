@@ -247,7 +247,7 @@ hr.split {
 	text-align: right;
 }
 .historyTable td:first-child {
-	text-align: left;
+	text-align: center;
 }
 
 /* 排出データ */
@@ -265,13 +265,16 @@ hr.split {
 	padding: 0.5em;
 	text-align: center;
 }
-#resultTable td {
+#resultTable td, .resultTable td {
 	text-align: right;
 }
-#resultTable td:first-child {
+#resultTable td:first-child, .resultTable td:first-child {
 	text-align: left;
 }
-
+.c1 td:first-child,
+.c2 td:nth-child(2){
+	text-align: center;
+}		
 .plain {
 	font-size: 0.9em;
 	font-weight: normal;

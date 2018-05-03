@@ -249,12 +249,12 @@ class DivisionCompareController extends Controller
 
 
 
-    private static $limit_transporter_division = 5;
+    private static $limit_transporter_division = 4;
  
     /**
      * 指定区分別にCO2を取得する。
      */
-    private function getDischargeByTransporterDivision($years, $transporter_division_id)
+    private function getDischargeByTransporterDivision($years, $company_division_id, $transporter_division_id)
     {
         //  ここからグラフ表示用のデータ
         //=================================
@@ -273,6 +273,16 @@ class DivisionCompareController extends Controller
                                     ->join('co2_transporter_discharge','co2_transporter.id','=','co2_transporter_discharge.transporter_id')
                                     ->when($transporter_division_id != 0, function ($query) use ($transporter_division_id) {
                                         return $query->where('co2_transporter.transporter_division_id', '=', $transporter_division_id);
+                                    })
+                                    ->when($transporter_division_id == 0, function ($query) use ($company_division_id) {
+                                        if ($company_division_id == '1')
+                                        {
+                                            return $query->whereBetween('co2_transporter.transporter_division_id', [10, 19]);
+                                        }
+                                        else if ($company_division_id == '2')
+                                        {
+                                            return $query->whereBetween('co2_transporter.transporter_division_id', [20, 29]);
+                                        }
                                     }) 
                                     ->where('co2_transporter_discharge.regist_year_id', '=', $year_id)
                                     ->groupBy('co2_transporter_discharge.regist_year_id','co2_transporter.transporter_division_id')
@@ -299,13 +309,13 @@ class DivisionCompareController extends Controller
    /**
      * グラフデータ作成
      */
-    private function makeTransporterDivisionGraphData($transporter_division_id)
+    private function makeTransporterDivisionGraphData($company_division_id, $transporter_division_id)
     {
         $graph_datasets = array();
         $graph_labels = array();
 
         $year_list = RegistYear::select()->orderBy('id', 'asc')->get();
-        $rank = self::getDischargeByTransporterDivision($year_list, $transporter_division_id);
+        $rank = self::getDischargeByTransporterDivision($year_list, $company_division_id, $transporter_division_id);
 
         foreach ($year_list as $year)
         {
@@ -326,10 +336,10 @@ class DivisionCompareController extends Controller
                     $tmp_sum += $rank[$i]['DATA'][$year->id];
                 }
             }
-            $graph_datasets[self::$limit_transporter_division]['POS'] = self::$limit_transporter_division;       
-            $graph_datasets[self::$limit_transporter_division]['ID'] = 0;
-            $graph_datasets[self::$limit_transporter_division]['NAME'] = "その他";
-            $graph_datasets[self::$limit_transporter_division]['DATA'][$year->id] = $tmp_sum;
+//            $graph_datasets[self::$limit_transporter_division]['POS'] = self::$limit_transporter_division;       
+//            $graph_datasets[self::$limit_transporter_division]['ID'] = 0;
+//            $graph_datasets[self::$limit_transporter_division]['NAME'] = "その他";
+//            $graph_datasets[self::$limit_transporter_division]['DATA'][$year->id] = $tmp_sum;
         }
 
         // その他も含まれているので削除
@@ -352,13 +362,13 @@ class DivisionCompareController extends Controller
         $company_division_id = isset($inputs['company_division_id']) ? $inputs['company_division_id'] : 0; // 設定されてないときは農業  
         $transporter_division_id = isset($inputs['transporter_division_id']) ? $inputs['transporter_division_id'] : 0;        // company division_id id
         $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
-
+/*
         $transporter_divisions = TransporterDivision::all()->pluck('name','id');; 
         $transporter_divisions->prepend('未選択', 0);    // 最初に追加
 
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加
-
+*/
         // $company_division_id が設定されてない場合アボート
         if ($company_division_id == 0) {
             abort('404');
@@ -367,6 +377,20 @@ class DivisionCompareController extends Controller
         if ($f_company_division == null) {
             abort('404');
         }
+
+        if ($company_division_id == '1')
+        {
+            $transporter_divisions = TransporterDivision::whereBetween('id', [10, 19])->pluck('name','id');; 
+            $transporter_divisions->prepend('未選択', 0);    // 最初に追加
+        }
+        else if ($company_division_id == '2')
+        {
+            $transporter_divisions = TransporterDivision::whereBetween('id', [20, 29])->pluck('name','id');; 
+            $transporter_divisions->prepend('未選択', 0);    // 最初に追加
+        }
+
+        $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
+        $regist_years->prepend('未選択', 0);    // 最初に追加
 
         $years = RegistYear::select()->orderBy('id', 'asc')->get();
 
@@ -385,6 +409,16 @@ class DivisionCompareController extends Controller
             ->where('co2_company.company_division_id', '=', $company_division_id)
             ->when($transporter_division_id != 0, function ($query) use ($transporter_division_id) {
                 return $query->where('co2_transporter.transporter_division_id', '=', $transporter_division_id);
+            }) 
+            ->when($transporter_division_id == 0, function ($query) use ($company_division_id) {
+                if ($company_division_id == '1')
+                {
+                    return $query->whereBetween('co2_transporter.transporter_division_id', [10, 19]);
+                }
+                else if ($company_division_id == '2')
+                {
+                    return $query->whereBetween('co2_transporter.transporter_division_id', [20, 29]);
+                }
             }) 
             ->when($regist_year_id != 0, function ($query) use ($regist_year_id) {
                 return $query->where('co2_transporter_discharge.regist_year_id', '=', $regist_year_id);
@@ -432,7 +466,7 @@ class DivisionCompareController extends Controller
         //=================================
 
         // グラフデータの作成
-        list($graph_labels, $graph_datasets)  = self::makeTransporterDivisionGraphData($transporter_division_id);
+        list($graph_labels, $graph_datasets)  = self::makeTransporterDivisionGraphData($company_division_id, $transporter_division_id);
 
         $graph_title = "職業別(中分類) 温室効果ガス排出合計"; 
 

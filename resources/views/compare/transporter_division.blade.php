@@ -1,16 +1,16 @@
 @extends('layouts.co2')
-@section('title', '輸送排出者別 CO2排出集計(輸送区分) | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '輸送排出者別 CO2排出量集計(輸送区分) | 温室効果ガスデータベース by Tウォッチ')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
         <li><a href="{{url('/')}}">メニュー</a></li>
         <li>&gt;  <a href="{{url('compare/CompanyDivision')}}">輸送排出者別 CO<sub>2</sub>排出量集計(指定区分)</a></li>
-        <li>&gt; 特定輸送排出者別 CO<sub>2</sub>排出集計(輸送区分)</li>
+        <li>&gt; 特定輸送排出者別 CO<sub>2</sub>排出量集計(輸送区分)</li>
       </ul>
       <!-- /#breadcrumbs -->
 
        <section>
-          <h2>特定輸送排出者別 CO<sub>2</sub>排出集計(輸送区分)</h2>
+          <h2>特定輸送排出者別 CO<sub>2</sub>排出量集計(輸送区分)</h2>
           <!-- 比較フォーム -->
           <section>
             <div class="display-switch">
@@ -100,8 +100,6 @@
           </section>
           <!-- /比較結果リスト -->
         </section>
-
-
 @endsection
 
 @section('add_javascript')
