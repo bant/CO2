@@ -21,14 +21,13 @@
               <table class="table table-bordered">
                 <tbody>
                   <tr>
-                  <th>指定区分</th>
-                  <td>{{$f_company_division->name}}</td>
+                    <th>指定区分</th>
+                    <td>{{$f_company_division->name}}</td>
                   </tr>
                   <tr>
                     <th>{!! Form::label('transporter_division', '輸送区分') !!}</th>
                     <td>{!! Form::select('transporter_division_id', $transporter_divisions, 0, ['class' => 'form', 'id' => 'transporter_division_id']) !!}</td>
                   </tr>
-                  <th>
                   <tr>
                     <th>{!! Form::label('regist_year', '年度') !!}</th>
                     <td>{!! Form::select('regist_year_id', $regist_years, 0, ['class' => 'form', 'id' => 'regist_year_id']) !!}</td>

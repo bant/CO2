@@ -118,7 +118,7 @@
             <hr class="split">
             <h3 class="result">事業所排出量内訳(単位:tCO <sub>2</sub>)
             </h3>
-            <table id="resultTable" class="table table-bordered table-striped resultTable">
+            <table id="resultTable" class="table table-bordered table-striped resultTable tablesorter-green">
               <thead>
                 <tr>
                 <th>年度</th>

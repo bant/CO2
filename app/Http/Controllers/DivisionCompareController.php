@@ -14,6 +14,34 @@ use Illuminate\Support\Facades\DB;
 
 class DivisionCompareController extends Controller
 {
+   /**
+    * 年度毎の合計を計算する
+    */
+    private function getSumOfCo2($company_division_id, $transporter_division_id, $regist_year_id)
+    {
+        $sum_data = Company::select(DB::raw(
+            "co2_company.company_division_id AS company_division_id,
+             co2_transporter_discharge.regist_year_id AS year_id,
+             SUM(co2_transporter_discharge.energy_co2) AS sum_energy_co2"
+            ))
+            ->join('co2_transporter','co2_company.id','=','co2_transporter.company_id')
+            ->join('co2_transporter_discharge','co2_transporter.id','=','co2_transporter_discharge.transporter_id')
+            ->when($company_division_id != 0, function ($query) use ($company_division_id) {
+                return $query->where('co2_company.company_division_id', '=', $company_division_id);
+            })
+            ->when($transporter_division_id != 0, function ($query) use ($transporter_division_id) {
+                return $query->where('co2_transporter.transporter_division_id', '=', $transporter_division_id);
+            })
+            ->when($regist_year_id != 0, function ($query) use ($regist_year_id) {
+                return $query->where('co2_transporter_discharge.regist_year_id', '=', $regist_year_id);
+            })
+            ->groupBy('co2_transporter_discharge.regist_year_id','co2_company.company_division_id')
+            ->first();
+
+
+        return  $sum_data;
+    }
+
     /**
      * 年度毎の集計
      */
@@ -39,7 +67,7 @@ class DivisionCompareController extends Controller
     }
 
 
-    private static $limit_company_division = 5;
+    private static $limit_company_division = 4;
  
     /**
      * 指定区分別にCO2を取得する。
@@ -116,10 +144,12 @@ class DivisionCompareController extends Controller
                     $tmp_sum += $rank[$i]['DATA'][$year->id];
                 }
             }
-            $graph_datasets[self::$limit_company_division]['POS'] = self::$limit_company_division;       
-            $graph_datasets[self::$limit_company_division]['ID'] = 0;
-            $graph_datasets[self::$limit_company_division]['NAME'] = "その他";
-            $graph_datasets[self::$limit_company_division]['DATA'][$year->id] = $tmp_sum;
+            // その他いらない
+
+     //       $graph_datasets[self::$limit_company_division]['POS'] = self::$limit_company_division;       
+     //       $graph_datasets[self::$limit_company_division]['ID'] = 0;
+     //       $graph_datasets[self::$limit_company_division]['NAME'] = "その他";
+     //       $graph_datasets[self::$limit_company_division]['DATA'][$year->id] = $tmp_sum;
         }
 
         // 都道府県指定の時に、その他も含まれているので削除
@@ -142,16 +172,10 @@ class DivisionCompareController extends Controller
 
         $company_division_id = isset($inputs['company_division_id']) ? $inputs['company_division_id'] : 0; // 設定されてないときは農業  
         $regist_year_id = isset($inputs['regist_year_id']) ? $inputs['regist_year_id'] : 0;
-/*
-        $company_division = CompanyDivision::find($company_division_id);
-        // CompanyDivisionが検索失敗する場合はアボート
-        if ($company_division == null) {
-            abort('404');
-        }
-*/
+
         $company_divisions = CompanyDivision::all()->pluck('name','id');; 
         $company_divisions->prepend('未選択', 0);    // 最初に追加
-//        unset($company_divisions[5]);
+        unset($company_divisions[5]);
 
         $regist_years = RegistYear::select()->orderBy('id', 'DESC')->pluck('name','id');
         $regist_years->prepend('未選択', 0);    // 最初に追加

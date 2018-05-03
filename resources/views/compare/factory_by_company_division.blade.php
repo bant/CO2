@@ -34,6 +34,7 @@
           <section>
             <hr class="split">
             <h3 class="result">事業者リスト(単位:tCO<sub>2</sub>)</h3>
+            <!-- ■ToDo -->
             <table id="resultTable" class="table table-bordered table-striped resultTable">
               <caption>該当件数: {{$table_count}}件</caption>
               <thead>
