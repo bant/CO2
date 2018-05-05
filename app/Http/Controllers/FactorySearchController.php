@@ -45,7 +45,7 @@ class FactorySearchController extends Controller
         }
         if ($factory_pref_id != '0')
         {
-            $query->where('factory_pref_id', '=', $factory_pref_id);
+            $query->where('pref_id', '=', $factory_pref_id);
         }
         if (!is_null($factory_address))
         {

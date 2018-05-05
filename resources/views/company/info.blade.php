@@ -1,12 +1,12 @@
 @extends('layouts.co2')
-@section('title', '事業者検索 | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '事業者届出情報 | 温室効果ガスデータベース by Tウォッチ')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
         <li><a href="{{url('/')}}">メニュー</a></li>
         <li>&gt; <a href="{{url('company/search')}}">事業者検索</a></li>
         <li>&gt; <a href="{{url('company/list')}}">事業者リスト</a></li>
-        <li>&gt; 事業者情報</li>
+        <li>&gt; 事業者届出情報</li>
       </ul>
       <!-- /#breadcrumbs -->
 

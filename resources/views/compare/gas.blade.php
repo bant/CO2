@@ -20,7 +20,7 @@
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th>{!! Form::label('gas', '指定区分') !!}</th>
+                <th>{!! Form::label('gas', '温室効果ガス') !!}</th>
                 <td>{!! Form::select('gas_id', 
                 [
                   'all' => '全ガス',

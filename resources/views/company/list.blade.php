@@ -1,5 +1,5 @@
 @extends('layouts.co2')
-@section('title', '事業者検索 | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '事業者リスト | 温室効果ガスデータベース by Tウォッチ')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
@@ -10,7 +10,7 @@
       <!-- /#breadcrumbs -->
 
       <section>
-      <h2>事業者検索</h2>
+      <h2>事業者リスト</h2>
         <section>
         <h3>検索条件</h3>
         <!-- 検索フォーム -->
@@ -46,7 +46,7 @@
           <section>
             <hr class="split">
             <h3 class="result">検索結果</h3>
-            <table id="companyTable" class="table table-bordered table-striped resultTable">
+            <table id="result" class="l2 table table-bordered table-striped resultTable">
               <caption>該当件数: {{$company_count}}件</caption>
               <thead>
                 <tr>
