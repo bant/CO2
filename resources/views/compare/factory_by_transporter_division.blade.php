@@ -39,7 +39,7 @@
           <section>
             <hr class="split">
             <h3 class="result">事業者リスト(単位:tCO<sub>2</sub>)</h3>
-            <table id="result" class="table table-bordered table-striped resultTable">
+            <table id="result" class="c2 table table-bordered table-striped resultTable">
               <thead>
                 <tr>
                   <th>事業者名</th>

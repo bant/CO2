@@ -274,7 +274,10 @@ hr.split {
 .c1 td:first-child,
 .c2 td:nth-child(2){
 	text-align: center;
-}		
+}
+.l2 td:nth-child(2), l24 td:nth-child(2), l24 td:nth-child(4) {
+	text-align: left;
+}	
 .plain {
 	font-size: 0.9em;
 	font-weight: normal;
