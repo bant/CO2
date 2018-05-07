@@ -374,7 +374,11 @@ class BusinessTypeCompareController extends Controller
         $pos = 0;
         foreach ($years as $year)
         {
-            $tmp_graph_datas = FactoryDischarge::select(DB::raw("co2_factory_discharge.regist_year_id AS regist_year_id, co2_factory.middle_business_type_id AS middle_business_type_id,SUM(co2_factory_discharge.sum_of_exharst) AS total_sum_of_exharst"))
+            $tmp_graph_datas = FactoryDischarge::select(DB::raw(
+                    "co2_factory_discharge.regist_year_id AS regist_year_id, 
+                    co2_factory.middle_business_type_id AS middle_business_type_id,
+                    SUM(co2_factory_discharge.sum_of_exharst) AS total_sum_of_exharst"
+                ))
                 ->join('co2_factory','co2_factory.id','=','co2_factory_discharge.factory_id')
                 ->where('co2_factory.major_business_type_id', '=', $major_business_type_id)
                 ->when($middle_business_type_id != 0, function ($query) use ($middle_business_type_id) {

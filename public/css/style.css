@@ -341,13 +341,19 @@ ul.pagination{
 }
 
 /* テーブルソート */
-/* .tablesorter-green th {
-	background: -webkit-linear-gradient(top, #DDDDDD 0%, #C4C4C4 50%, #DDDDDD 100%);  
-} */
 .tablesorter-header-inner {
 	color: #006600;
 }
 
+/* エラー */
+#error-box {
+	margin: 5em 0;
+}
+#error-link {
+	border: 1px solid #7F6706;
+	padding: 3em 0;
+	text-align: center;
+}
 
 /* 中型ディスプレイ 768px-1199px
 --------------------------------------------- */
