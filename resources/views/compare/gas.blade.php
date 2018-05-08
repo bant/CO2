@@ -59,6 +59,9 @@
         </div>
         <div class="graph">
           <canvas id="myChart"></canvas>
+          @if (count($graph_datasets) != 1)
+            <p class="center"><small>エネルギー起源CO<sub>2</sub>(発電所等配分前)はエネルギー起源CO<sub>2</sub>と重複しますので除外しています。</small></p>
+          @endif
         </div>
         </section>
         <!-- /比較グラフ -->

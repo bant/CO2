@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class GasCompareController extends Controller
 {
-    private static $limit_gas = 9;
+    private static $limit_gas = 8;
 
     private function getRankByGassAll($gas_id)
     {
@@ -42,17 +42,17 @@ class GasCompareController extends Controller
 
 
                 if ($gas_id == 'all' || $gas_id == 'energy_co2') {
-                    $result[0]['NAME'] = 'エネ起';
+                    $result[0]['NAME'] = 'エネルギー起源CO2';
                     $result[0]['DATA'][$year->id] = $tmp_data->sum_of_energy_co2;
                 }
 
                 if ($gas_id == 'all' || $gas_id == 'noenergy_co2') {
-                    $result[1]['NAME'] = '非エネ';
+                    $result[1]['NAME'] = '非エネルギー起源CO2';
                     $result[1]['DATA'][$year->id] = $tmp_data->sum_of_noenergy_co2;
                 }
 
                 if ($gas_id == 'all' || $gas_id == 'noenergy_dis_co2') {
-                    $result[2]['NAME'] = '非エ廃';
+                    $result[2]['NAME'] = '非エネルギー起源CO2(廃棄物の原燃料使用)';
                     $result[2]['DATA'][$year->id] = $tmp_data->sum_of_noenergy_dis_co2;
                 }
 
@@ -81,10 +81,11 @@ class GasCompareController extends Controller
                     $result[7]['DATA'][$year->id] = $tmp_data->sum_of_sf6;
                 }
 
-                if ($gas_id == 'all' || $gas_id == 'power_plant_energy_co2') {
+                if ($gas_id == 'power_plant_energy_co2') {
                     $result[8]['NAME'] = 'エネルギー起源CO2(発電所等配分前)';
                     $result[8]['DATA'][$year->id] = $tmp_data->sum_of_power_plant_energy_co2;
                 }
+
                 $year_id = $year->id;
         }
   
@@ -126,9 +127,11 @@ class GasCompareController extends Controller
                     $tmp_sum += $gas_rank[$i]['DATA'][$year->id];
                 }
             }
+/*
             $graph_datasets[self::$limit_gas]['POS'] = self::$limit_gas;       
             $graph_datasets[self::$limit_gas]['NAME'] = "その他";
             $graph_datasets[self::$limit_gas]['DATA'][$year->id] = $tmp_sum;
+ */
         }
 
         //その他も含まれているので削除
