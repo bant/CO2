@@ -1,5 +1,5 @@
 @extends('layouts.co2')
-@section('title', 'メニュー | 温室効果ガスデータベース by Tウォッチ')
+@section('title', 'メニュー')
 @section('content')
 <div id="contents">
 <!--- #contents --->

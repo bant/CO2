@@ -1,5 +1,5 @@
 @extends('layouts.co2')
-@section('title', '事業所リスト | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '事業所リスト')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
@@ -68,15 +68,15 @@
               <tbody>
               @foreach ($factories as $factory)
                 <tr>
-                  <td align="left">{{$factory->company->name}}
+                  <td>{{$factory->company->name}}
                     <br>
                     <a href="/factory/info?id={{$factory->id}}" title="{{$factory->name}}の詳細へ">{{$factory->name}}</a>
                   </td>
-                  <td align="left">{{$factory->major_business_type->name}}</td>
-                  <td align="center">{{$factory->regist_year->name}}年</td>
-                  <td align="left">{{$factory->address}}</td>
-                  <td align="right">{{$factory->employee}}人</td>
-                  <td align="right">{{$factory->getSumOfExharst($factory->regist_year->id)}}
+                  <td>{{$factory->major_business_type->name}}</td>
+                  <td>{{$factory->regist_year->name}}年</td>
+                  <td>{{$factory->address}}</td>
+                  <td>{{$factory->employee}}人</td>
+                  <td>{{$factory->getSumOfExharst($factory->regist_year->id)}}
                     <br>
                     @if ($factory->getPrePercent($factory->regist_year->id) == -99999999)
                       -

@@ -1,5 +1,5 @@
 @extends('layouts.co2')
-@section('title', '都道府県別比較 | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '都道府県別比較')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">

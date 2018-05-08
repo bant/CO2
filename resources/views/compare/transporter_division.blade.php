@@ -1,5 +1,5 @@
 @extends('layouts.co2')
-@section('title', '輸送排出者別 CO2排出量集計(輸送区分) | 温室効果ガスデータベース by Tウォッチ')
+@section('title', '輸送排出者別 CO2排出量集計(輸送区分)')
 @section('content')
       <!-- #breadcrumbs -->
       <ul id="breadcrumbs">
