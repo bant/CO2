@@ -60,7 +60,11 @@
               @foreach ($companies as $company)
                 <tr>
                   <td>
-                    <a href="/company/info?id={{$company->id}}" title="{{$company->name}}の詳細へ">{{$company->name}}</a>
+                    @if ($company->getFactoryCount()!=0)
+                      <a href="/company/info?id={{$company->id}}" title="{{$company->name}}の詳細へ">{{$company->name}}</a>
+                    @else
+                      {{$company->name}}
+                    @endif
                   </td>
                   <td align="left">{{$company->address}}</td>
                   <td align="right">{{$company->getFactoryCount()}}</td>
