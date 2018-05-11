@@ -46,7 +46,7 @@
           <section>
             <hr class="split">
             <h3 class="result">検索結果</h3>
-            <table id="result" class="l2 table table-bordered table-striped resultTable">
+            <table id="result" class="l24 table table-bordered table-striped resultTable">
               <caption>該当件数: {{$company_count}}件</caption>
               <thead>
                 <tr>
