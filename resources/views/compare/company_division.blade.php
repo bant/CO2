@@ -9,7 +9,7 @@
       <!-- /#breadcrumbs -->
 
         <section>
-          <h2>特定輸送排出者別 CO<sub>2</sub>排出集計</h2>
+          <h2>特定輸送排出者別 CO<sub>2</sub>排出量集計</h2>
           <!-- 比較フォーム -->
           <section>
             <div class="display-switch">
