@@ -8,6 +8,9 @@
         <li>&gt; 事業所排出情報</li>
       </ul>
       <!-- /#breadcrumbs -->
+      	<!-- 事業所排出情報 -->
+	      <section>
+          <h2>事業所届出情報</h2>
           <!-- 事業所情報 -->
           <section>
             <div class="display-switch">
