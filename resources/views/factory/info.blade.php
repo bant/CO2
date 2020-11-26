@@ -5,10 +5,12 @@
       <ul id="breadcrumbs">
         <li><a href="{{url('/')}}">メニュー</a></li>
         <li>&gt; <a href="{{url('factory/search')}}">事業所検索</a></li>
-        <li>&gt; <a href="{{url('factory/list')}}">事業所リスト</a></li>
         <li>&gt; 事業所排出情報</li>
       </ul>
       <!-- /#breadcrumbs -->
+      	<!-- 事業所排出情報 -->
+	      <section>
+          <h2>事業所届出情報</h2>
           <!-- 事業所情報 -->
           <section>
             <div class="display-switch">
@@ -34,7 +36,7 @@
                 <th>PRTR届出</th>
                 <td>
                 @if($factory->company->getPrtrCo2()!=0)
-                  <a href="https://prtr.toxwatch.net/company/factories??id={{$factory->company->getPrtrCo2()}}" target=”_blank”title="{{$factory->company->name}}のPRTR情報はこちら">{{$factory->company->name}}のPRTR情報はこちら</a>
+                  <a href="https://prtr.toxwatch.net/company/factories?id={{$factory->company->getPrtrCo2()}}" target=”_blank”title="{{$factory->company->name}}のPRTR情報はこちら">{{$factory->company->name}}のPRTR情報はこちら</a>
                 @else 
                   なし
                 @endif   

@@ -46,7 +46,7 @@
           <section>
             <hr class="split">
             <h3 class="result">検索結果</h3>
-            <table id="result" class="l2 table table-bordered table-striped resultTable">
+            <table id="result" class="l24 table table-bordered table-striped resultTable">
               <caption>該当件数: {{$company_count}}件</caption>
               <thead>
                 <tr>
@@ -60,7 +60,11 @@
               @foreach ($companies as $company)
                 <tr>
                   <td>
-                    <a href="/company/info?id={{$company->id}}" title="{{$company->name}}の詳細へ">{{$company->name}}</a>
+                    @if ($company->getFactoryCount()!=0)
+                      <a href="/company/info?id={{$company->id}}" title="{{$company->name}}の詳細へ">{{$company->name}}</a>
+                    @else
+                      {{$company->name}}
+                    @endif
                   </td>
                   <td align="left">{{$company->address}}</td>
                   <td align="right">{{$company->getFactoryCount()}}</td>

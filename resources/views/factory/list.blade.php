@@ -48,7 +48,7 @@
           <!-- 検索結果 -->
           <section>
             <hr class="split">
-            <h3 class="result">事業所者リスト</h3>
+            <h3 class="result">事業所リスト</h3>
             <table id="result" class="l24 table table-bordered table-striped resultTable">
               <caption>該当件数: {{$factory_count}}</caption>
               <thead>

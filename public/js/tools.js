@@ -127,5 +127,7 @@ jQuery( function( $ ) {
     location.href = '#breadcrumbs';
   });
 
-
+  //テーブルソーターを適応する
+  $('.tablesorter-green').tablesorter();
+  
 });

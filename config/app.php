@@ -183,6 +183,8 @@ return [
 
         // barryvdh/laravel-debugbar
         Barryvdh\Debugbar\ServiceProvider::class,
+
+        App\Providers\Co2ServiceProvider::class,
     ],
 
     /*
